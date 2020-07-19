@@ -37,6 +37,12 @@ declare global {
              * @param {string|RegExp|undefined} message
              */
             toFailWith<T>(expected: string|RegExp|undefined): R;
+
+            /**
+             * Use .toFailTest to test a custom matcher by
+             * verifying that a test case fails.
+             */
+            toFailTest<T>(): R;
         }
     }
 }

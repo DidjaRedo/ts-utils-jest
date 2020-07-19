@@ -26,4 +26,10 @@ describe('verify matchers accessibility', () => {
             return true;
         });
     });
+
+    test('toFailTest exists and works', () => {
+        expect(() => {
+            expect(true).toBe(false);
+        }).toFailTest();
+    });
 });
