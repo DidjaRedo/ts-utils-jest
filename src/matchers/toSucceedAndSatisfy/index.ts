@@ -1,0 +1,82 @@
+import { matcherName, predicate } from './predicate';
+import { printExpectedResult, printReceivedResult } from '../../utils/matcherHelpers';
+
+import { Result } from '@fgv/ts-utils';
+import { matcherHint } from 'jest-matcher-utils';
+
+declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
+    namespace jest {
+        interface Matchers<R> {
+            /**
+             * Use .toSucceedAndSatisfy to verify that a Result<T> is a success
+             * and that the result value matches the supplied predicate
+             * @param {(value: T) => boolean} predicate
+             */
+            toSucceedAndSatisfy<T>(predicate: (value: T) => boolean): R;
+        }
+    }
+}
+
+function passMessage<T>(received: Result<T>, cbResult: Result<boolean|undefined>): () => string {
+    const expected = 'successful callback';
+    const got = [printReceivedResult(received)];
+    if (cbResult.isFailure()) {
+        got.push(cbResult.message);
+    }
+    else if (cbResult.value === true) {
+        got.push('  Callback returned true');
+    }
+    else if (cbResult.value === false) {
+        got.push('  Callback returned false');
+    }
+    else {
+        got.push('  Callback was not invoked');
+    }
+
+    return () => [
+        matcherHint(`.not.${matcherName}\n`),
+        printExpectedResult('success', false, expected),
+        ...got,
+    ].join('\n');
+}
+
+function failMessage<T>(received: Result<T>, cbResult: Result<boolean|undefined>): () => string {
+    const expected = 'successful callback';
+    const got = [printReceivedResult(received)];
+    if (cbResult.isFailure()) {
+        got.push(cbResult.message);
+    }
+    else if (cbResult.value === true) {
+        got.push('  Callback returned true');
+    }
+    else if (cbResult.value === false) {
+        got.push('  Callback returned false');
+    }
+    else {
+        got.push('  Callback was not invoked');
+    }
+
+    return () => [
+        matcherHint(`${matcherName}\n`),
+        printExpectedResult('success', true, expected),
+        ...got,
+    ].join('\n');
+}
+
+export default {
+    toSucceedAndSatisfy: function<T> (this: jest.MatcherContext, received: Result<T>, cb: (value: T) => boolean): jest.CustomMatcherResult {
+        // For the normal (not '.not') case, we do not want to capture exceptions
+        // so that the IDE can display exactly the line on which the failure case.
+        // For the .not case, we want to swallow exceptions or expect failures since
+        // we're just testing failure and not the reason.
+        const capture = this.isNot;
+        const cbResult = predicate(received, cb, capture);
+        const pass = cbResult.isSuccess() && (cbResult.value === true);
+        if (pass) {
+            return { pass: true, message: passMessage(received, cbResult) };
+        }
+
+        return { pass: false, message: failMessage(received, cbResult) };
+    },
+};
