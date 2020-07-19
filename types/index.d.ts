@@ -21,7 +21,7 @@ declare namespace jest {
          * and that the result value matches the supplied predicate
          * @param {(value: T) => boolean} predicate
          */
-        toSucceedAndSatisfy<T>(predicate: (result: Result<T>) => boolean): R;
+        toSucceedAndSatisfy<T>(predicate: (value: T) => boolean): R;
 
         /**
          * Use .toFail to verify that a Result<T> is a failure

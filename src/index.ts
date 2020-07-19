@@ -7,6 +7,7 @@ function isJestGlobal(g: NodeJS.Global): g is JestGlobal {
     return g.hasOwnProperty('expect');
 }
 
+// istanbul ignore else
 if (isJestGlobal(global)) {
     global.expect.extend(matchers);
 }

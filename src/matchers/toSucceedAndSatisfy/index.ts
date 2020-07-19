@@ -35,7 +35,7 @@ function passMessage<T>(received: Result<T>, cbResult: Result<boolean|undefined>
     }
 
     return () => [
-        matcherHint(`.not.${matcherName}\n`),
+        matcherHint(`.not.${matcherName}`, 'result', 'callback'),
         printExpectedResult('success', false, expected),
         ...got,
     ].join('\n');
@@ -58,7 +58,7 @@ function failMessage<T>(received: Result<T>, cbResult: Result<boolean|undefined>
     }
 
     return () => [
-        matcherHint(`${matcherName}\n`),
+        matcherHint(`${matcherName}`, 'result', 'callback'),
         printExpectedResult('success', true, expected),
         ...got,
     ].join('\n');

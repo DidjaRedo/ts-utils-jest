@@ -20,7 +20,7 @@ declare global {
 
 function passMessage<T>(received: Result<T>, expected: T): () => string {
     return () => [
-        matcherHint(`.not.${matcherName}\n`),
+        matcherHint(`.not.${matcherName}`),
         printExpectedResult('success', false, expected),
         printReceivedResult(received),
     ].join('\n');
@@ -28,7 +28,7 @@ function passMessage<T>(received: Result<T>, expected: T): () => string {
 
 function failMessage<T>(received: Result<T>, expected: T): () => string {
     return () => [
-        matcherHint(`${matcherName}\n`),
+        matcherHint(`${matcherName}`),
         printExpectedResult('success', true, expected),
         printReceivedResult(received),
     ].join('\n');
