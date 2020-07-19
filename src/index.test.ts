@@ -32,4 +32,10 @@ describe('verify matchers accessibility', () => {
             expect(true).toBe(false);
         }).toFailTest();
     });
+
+    test('toFailTestWith exists and works', () => {
+        expect(() => {
+            expect(true).toBe(false);
+        }).toFailTestWith(/expect.*[\s\S].*false.*[\s\S].*true/i);
+    });
 });

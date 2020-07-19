@@ -1,5 +1,6 @@
 import ToFail from './toFail';
 import ToFailTest from './toFailTest';
+import ToFailTestWith from './toFailTestWith';
 import ToFailWith from './toFailWith';
 import ToSucceed from './toSucceed';
 import ToSucceedAndSatisfy from './toSucceedAndSatisfy';
@@ -8,6 +9,7 @@ import ToSucceedWith from './toSucceedWith';
 export default {
     ...ToFail,
     ...ToFailTest,
+    ...ToFailTestWith,
     ...ToFailWith,
     ...ToSucceed,
     ...ToSucceedAndSatisfy,
