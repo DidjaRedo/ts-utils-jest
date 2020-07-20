@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`.toFailTestAndMatchSnapshot logs details correctly for a failed result: toFailTestAndMatchSnapshot 1`] = `
+"expect(callback).toFailTestAndMatchSnapshot(expected)
+  Expected: Callback to fail with an error that matches snapshot
+  Received: Callback succeeded"
+`;
+
 exports[`.toFailTestAndMatchSnapshot passes for a test that fails with a result matching the snapshot: toFailTestAndMatchSnapshot 1`] = `
 "expect(received).toBe(expected) // Object.is equality
 

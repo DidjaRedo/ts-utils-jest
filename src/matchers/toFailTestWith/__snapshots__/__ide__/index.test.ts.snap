@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`.toFailTestWith logs failure correctly when callback fails with .not: toFailTestAndMatchSnapshot 1`] = `
+"expect(callback).not.toFailTestWith(expectedMessage)
+Expected:
+  Not failure with /expect/i
+  Received: Callback failed with:
+>>>>
+expect(received).toBe(expected) // Object.is equality
+
+Expected: false
+Received: true
+<<<<"
+`;
+
+exports[`.toFailTestWith logs failure correctly when callback returns an unexpected value: toFailTestAndMatchSnapshot 1`] = `
+"expect(callback).toFailTestWith(expectedMessage)
+Expected:
+  Failure with /random text/i
+  Received: Callback failed with:
+>>>>
+expect(received).toBe(expected) // Object.is equality
+
+Expected: \\"goodbye\\"
+Received: \\"hello\\"
+<<<<"
+`;
+
+exports[`.toFailTestWith logs failure correctly when callback succeeds: toFailTestAndMatchSnapshot 1`] = `
+"expect(callback).toFailTestWith(expectedMessage)
+Expected:
+  Failure with \\"whatever\\"
+  Received: Callback succeeded"
+`;

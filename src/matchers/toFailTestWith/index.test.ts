@@ -1,6 +1,10 @@
 import matcher from './';
+import toFailTestAndMatchSnapshot from '../toFailTestAndMatchSnapshot';
 
-expect.extend(matcher);
+expect.extend({
+    ...matcher,
+    ...toFailTestAndMatchSnapshot,
+});
 
 describe('.toFailTestWith', () => {
     test('fails for a callback that succeeds', () => {
@@ -42,5 +46,29 @@ describe('.toFailTestWith', () => {
         expect(() => {
             expect('hello').toBe('goodbye');
         }).not.toFailTestWith(/random text/i);
+    });
+
+    test('logs failure correctly when callback succeeds', () => {
+        expect(() => {
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            expect(() => {}).toFailTestWith('whatever');
+        }).toFailTestAndMatchSnapshot();
+    });
+
+    test('logs failure correctly when callback returns an unexpected value', () => {
+        expect(() => {
+            expect(() => {
+                expect('hello').toBe('goodbye');
+            }).toFailTestWith(/random text/i);
+        }).toFailTestAndMatchSnapshot();
+    });
+
+
+    test('logs failure correctly when callback fails with .not', () => {
+        expect(() => {
+            expect(() => {
+                expect(true).toBe(false);
+            }).not.toFailTestWith(/expect/i);
+        }).toFailTestAndMatchSnapshot();
     });
 });

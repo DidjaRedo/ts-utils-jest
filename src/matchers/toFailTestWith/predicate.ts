@@ -1,5 +1,6 @@
 import { Result, captureResult, fail, succeed } from '@fgv/ts-utils';
 import { equals } from 'expect/build/jasmineUtils';
+import { stringify } from 'jest-matcher-utils';
 
 export const matcherName = 'toFailTestWith';
 
@@ -15,6 +16,9 @@ export function predicate<T>(cb: () => void, expected: string|string[]|RegExp): 
         }
         else if (Array.isArray(expected)) {
             success = equals(cbResult.message.split('\n'), expected);
+        }
+        else {
+            return fail(`Unsupported expected value "${stringify(expected)}" for toFailTestWith`);
         }
         return (success ? succeed(cbResult.message) : fail(cbResult.message));
     }
