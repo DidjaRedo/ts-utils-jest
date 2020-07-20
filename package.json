@@ -10,6 +10,7 @@
     "test": "jest",
     "test-handles": "jest --runInBand --detectOpenHandles",
     "clean-jest": "jest --clear-cache",
+    "update-snapshot": "jest --updateSnapshot",
     "coverage": "jest --coverage",
     "lint": "eslint src test/unit --ext .ts",
     "fixlint": "eslint src test/unit --ext .ts --fix"
@@ -24,7 +25,8 @@
   "dependencies": {
     "@fgv/ts-utils": "0.0.1",
     "expect": "^26.1.0",
-    "jest-matcher-utils": "^26.1.0"
+    "jest-matcher-utils": "^26.1.0",
+    "jest-snapshot": "^26.1.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.4",

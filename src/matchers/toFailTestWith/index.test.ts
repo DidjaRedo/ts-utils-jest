@@ -2,7 +2,7 @@ import matcher from './';
 
 expect.extend(matcher);
 
-describe('.toFailExpectations', () => {
+describe('.toFailTestWith', () => {
     test('fails for a callback that succeeds', () => {
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         expect(() => {}).not.toFailTestWith('whatever');

@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`.toFailTestAndMatchSnapshot passes for a test that fails with a result matching the snapshot: toFailTestAndMatchSnapshot 1`] = `
+"expect(received).toBe(expected) // Object.is equality
+
+Expected: false
+Received: true"
+`;

@@ -3,7 +3,7 @@ module.exports = {
     preset: "ts-jest",
     testEnvironment: "node",
     testPathIgnorePatterns: ["boneyard/"],
-    snapshotResolver: './dist/resolvers/cli.js',
+    snapshotResolver: './dist/resolvers/ide.js',
     collectCoverageFrom: [
         'src/**/*.ts',
     ],
