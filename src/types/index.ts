@@ -47,6 +47,13 @@ declare global {
             /**
              * Use .toFailTestWith to test a custom matcher by
              * verifying that a test case fails as expected and
+             * reports an error matching a stored snapshot.
+             */
+            toFailTestAndMatchSnapshot<T>(): R;
+
+            /**
+             * Use .toFailTestWith to test a custom matcher by
+             * verifying that a test case fails as expected and
              * reports an error matching a supplied value.
              * @param {string|string[]|RegExp} expected
              */

@@ -33,6 +33,12 @@ describe('verify matchers accessibility', () => {
         }).toFailTest();
     });
 
+    test('toFailTestAndMatchSnapshot exists and works', () => {
+        expect(() => {
+            expect(true).toBe(false);
+        }).toFailTestAndMatchSnapshot();
+    });
+
     test('toFailTestWith exists and works', () => {
         expect(() => {
             expect(true).toBe(false);
