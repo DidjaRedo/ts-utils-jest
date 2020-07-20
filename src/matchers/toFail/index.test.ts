@@ -1,4 +1,4 @@
-import { fail, succeed } from '@fgv/ts-utils';
+import { fail, succeed } from '../../ts-utils';
 import matcher from './';
 import toFailTestAndMatchSnapshot from '../toFailTestAndMatchSnapshot';
 

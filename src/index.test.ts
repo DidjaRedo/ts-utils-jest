@@ -1,6 +1,6 @@
 import './index';
 
-import { fail, succeed } from '@fgv/ts-utils';
+import { fail, succeed } from '../../ts-utils';
 
 describe('verify matchers accessibility', () => {
     test('toFail exists and works', () => {

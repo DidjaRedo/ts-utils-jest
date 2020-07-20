@@ -1,5 +1,5 @@
 
-import { Result } from '@fgv/ts-utils';
+import { Result } from '../../ts-utils';
 
 export const matcherName = 'toFail';
 

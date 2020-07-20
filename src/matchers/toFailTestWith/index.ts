@@ -1,4 +1,4 @@
-import { Failure, Success } from '@fgv/ts-utils';
+import { Failure, Success } from '../../ts-utils';
 import { matcherName, predicate } from './predicate';
 
 import { matcherHint } from 'jest-matcher-utils';

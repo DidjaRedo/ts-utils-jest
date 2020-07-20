@@ -1,6 +1,6 @@
 import { printExpected, printReceived } from 'jest-matcher-utils';
 
-import { Result } from '@fgv/ts-utils';
+import { Result } from '../ts-utils';
 
 function printExpectedValue<T>(outcome: string, expected?: T): string {
     return (expected !== undefined)

@@ -1,4 +1,4 @@
-import { Result } from '@fgv/ts-utils';
+import { Result } from '../../ts-utils';
 import { equals } from 'expect/build/jasmineUtils';
 
 export const matcherName = 'toSucceedWith';

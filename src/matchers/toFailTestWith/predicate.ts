@@ -1,4 +1,4 @@
-import { Result, captureResult, fail, succeed } from '@fgv/ts-utils';
+import { Result, captureResult, fail, succeed } from '../../ts-utils';
 import { equals } from 'expect/build/jasmineUtils';
 import { stringify } from 'jest-matcher-utils';
 

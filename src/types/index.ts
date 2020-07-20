@@ -1,7 +1,7 @@
 /// <reference types="jest"/>
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
-import { Result } from '@fgv/ts-utils';
+import { Result } from '../ts-utils';
 
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
