@@ -18,21 +18,10 @@ declare global {
     }
 }
 
-function passMessage<T>(received: Result<T>, cbResult: Result<boolean|undefined>): () => string {
+function passMessage<T>(received: Result<T>): () => string {
     const expected = 'successful callback';
     const got = [printReceivedResult(received)];
-    if (cbResult.isFailure()) {
-        got.push(cbResult.message);
-    }
-    else if (cbResult.value === true) {
-        got.push('  Callback returned true');
-    }
-    else if (cbResult.value === false) {
-        got.push('  Callback returned false');
-    }
-    else {
-        got.push('  Callback was not invoked');
-    }
+    got.push('  Callback returned true');
 
     return () => [
         matcherHint(`.not.${matcherName}`, 'result', 'callback'),
@@ -47,14 +36,16 @@ function failMessage<T>(received: Result<T>, cbResult: Result<boolean|undefined>
     if (cbResult.isFailure()) {
         got.push(cbResult.message);
     }
-    else if (cbResult.value === true) {
-        got.push('  Callback returned true');
-    }
     else if (cbResult.value === false) {
         got.push('  Callback returned false');
     }
-    else {
+    // istanbul ignore else
+    else if (cbResult.value === undefined) {
         got.push('  Callback was not invoked');
+    }
+    else {
+        // istanbul ignore next
+        throw new Error('Internal error: toSucceedAndSatisfy.failMessage passed success with true');
     }
 
     return () => [
@@ -74,7 +65,7 @@ export default {
         const cbResult = predicate(received, cb, capture);
         const pass = cbResult.isSuccess() && (cbResult.value === true);
         if (pass) {
-            return { pass: true, message: passMessage(received, cbResult) };
+            return { pass: true, message: passMessage(received) };
         }
 
         return { pass: false, message: failMessage(received, cbResult) };
