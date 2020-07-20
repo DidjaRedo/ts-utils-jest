@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`.toSucceed reports details for a failed .not test: toFailTestAndMatchSnapshot 1`] = `
+"expect(received).not.toSucceed(expected)
+Expected:
+  Not success
+Received:
+  Success with \\"hello\\""
+`;
+
+exports[`.toSucceed reports details for a failed test: toFailTestAndMatchSnapshot 1`] = `
+"expect(received).toSucceed(expected)
+Expected:
+  Success
+Received:
+  Failure with \\"oops\\""
+`;
