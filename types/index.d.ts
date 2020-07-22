@@ -10,9 +10,9 @@ declare namespace jest {
         /**
          * Use .toSucceedWith to verify that a Result<T> is a success
          * and that the result value matches the supplied value
-         * @param {T} expected
+         * @param {unknown} expected
          */
-        toSucceedWith<T>(expected: T): R;
+        toSucceedWith(expected: unknown): R;
 
         /**
          * Use .toSucceedAndSatisfy to verify that a Result<T> is a success

@@ -14,6 +14,18 @@ describe('toSucceedWith', () => {
         expect(predicate(succeed('hello'), 'goodbye')).toBe(false);
     });
 
+    test('returns true for success with a string value and matching expected RegExp', () => {
+        expect(predicate(succeed('hello sailor'), /sailor/i)).toBe(true);
+    });
+
+    test('returns false for success with a string value and non-matching expected RegExp', () => {
+        expect(predicate(succeed('hello sailor'), /soldier/i)).toBe(false);
+    });
+
+    test('returns false for success with a non-string value and non-matching expected RegExp', () => {
+        expect(predicate(succeed(10), /soldier/i)).toBe(false);
+    });
+
     test('returns true for success with a matching asymmetric match', () => {
         expect(predicate(
             succeed({
