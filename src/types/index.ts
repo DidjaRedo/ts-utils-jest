@@ -21,10 +21,11 @@ declare global {
 
             /**
              * Use .toSucceedAndSatisfy to verify that a Result<T> is a success
-             * and that the result value matches the supplied predicate
-             * @param {(value: T) => boolean} predicate
+             * and that the supplied predicate returns true or undefined
+             * for the resulting value
+             * @param {(value: T) => boolean|undefined} predicate
              */
-            toSucceedAndSatisfy<T>(predicate: (value: T) => boolean): R;
+            toSucceedAndSatisfy<T>(predicate: (value: T) => boolean|undefined): R;
 
             /**
              * Use .toFail to verify that a Result<T> is a failure
