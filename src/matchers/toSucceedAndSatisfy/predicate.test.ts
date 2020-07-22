@@ -13,6 +13,10 @@ describe('toSucceedAndSatisfy', () => {
         expect(predicate(succeed('hello'), (value: string) => value === 'hello', true)).toSucceedWith(true);
     });
 
+    test('succeeds with true for a succesful result value and a callback that returns undefined', () => {
+        expect(predicate(succeed('hello'), () => undefined, true)).toSucceedWith(true);
+    });
+
     test('succeeds with false for a successful result value but a callback that fails', () => {
         expect(predicate(succeed('hello'), (value: string) => value !== 'hello', true)).toSucceedWith(false);
     });

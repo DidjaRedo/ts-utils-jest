@@ -12,6 +12,10 @@ describe('.toSucceedAndSatisfy', () => {
         expect(succeed('hello')).toSucceedAndSatisfy((value: string) => value === 'hello');
     });
 
+    test('passes with a success value and a callback that returns undefined', () => {
+        expect(succeed('hello')).toSucceedAndSatisfy(() => undefined);
+    });
+
     test('fails with a success value but a callback that returns false', () => {
         expect(succeed('hello')).not.toSucceedAndSatisfy((value: string) => value !== 'hello');
     });
