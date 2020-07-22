@@ -7,7 +7,7 @@ export const matcherName = 'toSucceedAndSatisfy';
 //    true if the callback returns undefined
 // If the result is successful but the callback throws, returns Failure with the thrown error
 // If the result is failure, returns Success with undefined
-export function predicate<T>(received: Result<T>, cb: (value: T) => boolean|undefined, capture: boolean): Result<boolean|undefined> {
+export function predicate<T>(received: Result<T>, cb: (value: T) => boolean|void, capture: boolean): Result<boolean|undefined> {
     if (received.isSuccess()) {
         const cbResult = (capture ? captureResult(() => cb(received.value)) : succeed(cb(received.value)));
         if (cbResult.isSuccess()) {
