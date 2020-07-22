@@ -21,6 +21,18 @@ describe('.toSucceedWith', () => {
         expect(succeed('hello')).not.toSucceedWith('goodbye');
     });
 
+    test('succeeds with a string that matches an expected RegExp', () => {
+        expect(succeed('hello sailor')).toSucceedWith(/sailor/i);
+    });
+
+    test('fails with a string that does not match an expected RegExp', () => {
+        expect(succeed('hello sailor')).not.toSucceedWith(/soldier/i);
+    });
+
+    test('fails with a non-string and a RegExp', () => {
+        expect(succeed({ data: 'hello sailor'})).not.toSucceedWith(/sailor/i);
+    });
+
     test('passes with a matching asymmetric match', () => {
         expect(succeed({
             title: 'A title string',
