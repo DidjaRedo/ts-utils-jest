@@ -10,11 +10,11 @@ declare global {
         interface Matchers<R> {
             /**
              * Use .toSucceedAndSatisfy to verify that a Result<T> is a success
-             * and that the supplied test function returns true or undefined
+             * and that the supplied test function returns true (or void)
              * for the resulting value
-             * @param {(value: T) => boolean|undefined} test
+             * @param {(value: T) => boolean|void} test
              */
-            toSucceedAndSatisfy<T>(test: (value: T) => boolean|undefined): R;
+            toSucceedAndSatisfy<T>(test: (value: T) => boolean|void): R;
         }
     }
 }
@@ -31,7 +31,7 @@ function passMessage<T>(received: Result<T>): () => string {
     ].join('\n');
 }
 
-function failMessage<T>(received: Result<T>, cbResult: Result<boolean|undefined>): () => string {
+function failMessage<T>(received: Result<T>, cbResult: Result<boolean|void>): () => string {
     const expected = 'successful callback';
     const got = [printReceivedResult(received)];
     if (cbResult.isFailure()) {
@@ -57,7 +57,7 @@ function failMessage<T>(received: Result<T>, cbResult: Result<boolean|undefined>
 }
 
 export default {
-    toSucceedAndSatisfy: function<T> (this: jest.MatcherContext, received: Result<T>, test: (value: T) => boolean|undefined): jest.CustomMatcherResult {
+    toSucceedAndSatisfy: function<T> (this: jest.MatcherContext, received: Result<T>, test: (value: T) => boolean|void): jest.CustomMatcherResult {
         // For the normal (not '.not') case, we do not want to capture exceptions
         // so that the IDE can display exactly the line on which the failure case.
         // For the .not case, we want to swallow exceptions or expect failures since

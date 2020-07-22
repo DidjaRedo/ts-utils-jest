@@ -12,8 +12,9 @@ describe('.toSucceedAndSatisfy', () => {
         expect(succeed('hello')).toSucceedAndSatisfy((value: string) => value === 'hello');
     });
 
-    test('passes with a success value and a callback that returns undefined', () => {
-        expect(succeed('hello')).toSucceedAndSatisfy(() => undefined);
+    test('passes with a success value and a callback with no return', () => {
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        expect(succeed('hello')).toSucceedAndSatisfy(() => {});
     });
 
     test('fails with a success value but a callback that returns false', () => {
