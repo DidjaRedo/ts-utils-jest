@@ -1,7 +1,11 @@
-import { fail, succeed } from '@fgv/ts-utils';
+import { fail, succeed } from '../../ts-utils';
 import matcher from './';
+import toFailTestAndMatchSnapshot from '../toFailTestAndMatchSnapshot';
 
-expect.extend(matcher);
+expect.extend({
+    ...matcher,
+    ...toFailTestAndMatchSnapshot,
+});
 
 describe('.toSucceedWith', () => {
     test('succeeds with a success result that matches expected', () => {
@@ -41,5 +45,23 @@ describe('.toSucceedWith', () => {
                 expect.stringContaining('3'),
             ]),
         }));
+    });
+
+    test('reports details when it fails due to a success result with .not', () => {
+        expect(() => {
+            expect(succeed('hello')).not.toSucceedWith('hello');
+        }).toFailTestAndMatchSnapshot();
+    });
+
+    test('reports details when it fails due to a failure result', () => {
+        expect(() => {
+            expect(fail('oops')).toSucceedWith('oops');
+        }).toFailTestAndMatchSnapshot();
+    });
+
+    test('reports details when it fails due to success with a non-matching value', () => {
+        expect(() => {
+            expect(succeed('hello')).toSucceedWith('goodbye');
+        }).toFailTestAndMatchSnapshot();
     });
 });

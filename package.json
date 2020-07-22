@@ -1,6 +1,6 @@
 {
   "name": "@fgv/ts-utils-jest",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Custom matchers for ts-utils result class",
   "main": "dist/index.js",
   "scripts": {
@@ -10,9 +10,10 @@
     "test": "jest",
     "test-handles": "jest --runInBand --detectOpenHandles",
     "clean-jest": "jest --clear-cache",
+    "update-snapshot": "jest --updateSnapshot",
     "coverage": "jest --coverage",
-    "lint": "eslint src test/unit --ext .ts",
-    "fixlint": "eslint src test/unit --ext .ts --fix"
+    "lint": "eslint src -ext .ts",
+    "fixlint": "eslint src --ext .ts --fix"
   },
   "keywords": [
     "typescript",
@@ -22,9 +23,10 @@
   "author": "Erik Fortune",
   "license": "MIT",
   "dependencies": {
-    "@fgv/ts-utils": "0.0.1",
+    "@fgv/ts-utils": "^0.1.0",
     "expect": "^26.1.0",
-    "jest-matcher-utils": "^26.1.0"
+    "jest-matcher-utils": "^26.1.0",
+    "jest-snapshot": "^26.1.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.4",

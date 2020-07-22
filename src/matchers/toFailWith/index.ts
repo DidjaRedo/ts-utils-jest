@@ -1,7 +1,7 @@
 import { matcherName, predicate } from './predicate';
 import { printExpectedResult, printReceivedResult } from '../../utils/matcherHelpers';
 
-import { Result } from '@fgv/ts-utils';
+import { Result } from '../../ts-utils';
 import { matcherHint } from 'jest-matcher-utils';
 
 declare global {

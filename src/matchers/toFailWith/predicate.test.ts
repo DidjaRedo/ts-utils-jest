@@ -1,10 +1,11 @@
-import { fail, succeed } from '@fgv/ts-utils';
+import { fail, succeed } from '../../ts-utils';
 import { predicate } from './predicate';
 
 describe('toFailWith', () => {
-    test('fails with a failure result and matching string or RegExp', () => {
+    test('fails with a failure result and matching string, RegExp or undefined', () => {
         expect(predicate(fail('oops'), 'oops')).toBe(true);
         expect(predicate(fail('oops'), /o.*/i)).toBe(true);
+        expect(predicate(fail(undefined as unknown as string), undefined)).toBe(true);
     });
 
     test('fails with a success result', () => {

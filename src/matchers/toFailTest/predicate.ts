@@ -1,4 +1,4 @@
-import { captureResult } from '@fgv/ts-utils';
+import { captureResult } from '../../ts-utils';
 export const matcherName = 'toFailTest';
 
 export function predicate<T>(cb: () => void): boolean {

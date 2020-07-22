@@ -5,5 +5,7 @@
     },
     "files.exclude": {
         "**/boneyard/**/*.ts": true
-    }
+    },
+    "jest.pathToConfig": "./jest.ide-config.js",
+    "jestrunner.configPath": "jest.ide-config.js"
 }

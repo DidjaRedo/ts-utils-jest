@@ -60,5 +60,11 @@ describe('toFailTestWith', () => {
             /expect.*[\n\S]*goodbye.*[\s\S]*hello/i
         );
     });
+
+    test('returns fail with an error if passed an illegal expected value', () => {
+        expect(predicate(() => {
+            throw new Error('1');
+        }, 1 as unknown as string)).toFailWith(/unsupported expected value/i);
+    });
 });
 

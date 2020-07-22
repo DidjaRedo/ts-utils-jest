@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`.toSucceedAndSatisfy reports details when callback fails an expectation: toFailTestAndMatchSnapshot 1`] = `
+"expect(received).toBe(expected) // Object.is equality
+
+Expected: \\"goodbye\\"
+Received: \\"hello\\""
+`;
+
+exports[`.toSucceedAndSatisfy reports details when callback returns false: toFailTestAndMatchSnapshot 1`] = `
+"expect(result).toSucceedAndSatisfy(callback)
+Expected:
+  Success with \\"successful callback\\"
+Received:
+  Success with \\"hello\\"
+  Callback returned false"
+`;
+
+exports[`.toSucceedAndSatisfy reports details when callback throws an exception: toFailTestAndMatchSnapshot 1`] = `"UH OH AN ERRROR"`;
+
+exports[`.toSucceedAndSatisfy reports details when received is a failure result: toFailTestAndMatchSnapshot 1`] = `
+"expect(result).toSucceedAndSatisfy(callback)
+Expected:
+  Success with \\"successful callback\\"
+Received:
+  Failure with \\"oops\\"
+  Callback was not invoked"
+`;
+
+exports[`.toSucceedAndSatisfy reports details with success and .not: toFailTestAndMatchSnapshot 1`] = `
+"expect(result).not.toSucceedAndSatisfy(callback)
+Expected:
+  Not success with \\"successful callback\\"
+Received:
+  Success with \\"hello\\"
+  Callback returned true"
+`;

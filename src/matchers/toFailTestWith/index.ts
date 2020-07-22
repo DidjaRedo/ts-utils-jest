@@ -1,6 +1,6 @@
+import { Failure, Success } from '../../ts-utils';
 import { matcherName, predicate } from './predicate';
 
-import { Result } from '@fgv/ts-utils';
 import { matcherHint } from 'jest-matcher-utils';
 import { printExpectedResult } from '../../utils/matcherHelpers';
 
@@ -19,49 +19,28 @@ declare global {
     }
 }
 
-function passMessage<T>(cbResult: Result<string>, expected: RegExp|string|string[]): () => string {
-    const got: string[] = [];
-    if (cbResult.isSuccess()) {
-        got.push(`  Received: Callback failed with:\n>>>>\n${cbResult.value}\n<<<<`);
-    }
-    else if (cbResult.message === '') {
-        got.push('  Received: Callback succeeded');
-    }
-    else {
-        got.push(`  Received: Callback failed with:\n>>>>\n${cbResult.message}\n<<<<`);
-    }
-
+function passMessage<T>(cbResult: Success<string>, expected: RegExp|string|string[]): () => string {
     return () => [
         matcherHint(`.not.${matcherName}`, 'callback', 'expectedMessage'),
         printExpectedResult('failure', false, expected),
-        ...got,
+        `  Received: Callback failed with:\n>>>>\n${cbResult.value}\n<<<<`,
     ].join('\n');
 }
 
-function failMessage<T>(cbResult: Result<string>, expected: RegExp|string|string[]): () => string {
-    const got: string[] = [];
-    if (cbResult.isSuccess()) {
-        got.push(`  Received: Callback failed with:\n>>>>\n${cbResult.value}\n<<<<`);
-    }
-    else if (cbResult.message === '') {
-        got.push('  Received: Callback succeeded');
-    }
-    else {
-        got.push(`  Received: Callback failed with:\n>>>>\n${cbResult.message}\n<<<<`);
-    }
-
+function failMessage<T>(cbResult: Failure<string>, expected: RegExp|string|string[]): () => string {
     return () => [
         matcherHint(`${matcherName}`, 'callback', 'expectedMessage'),
         printExpectedResult('failure', true, expected),
-        ...got,
+        ((cbResult.message === '')
+            ? '  Received: Callback succeeded'
+            : `  Received: Callback failed with:\n>>>>\n${cbResult.message}\n<<<<`),
     ].join('\n');
 }
 
 export default {
     toFailTestWith: function<T> (cb: () => void, expected: RegExp|string|string[]): jest.CustomMatcherResult {
         const cbResult = predicate(cb, expected);
-        const pass = cbResult.isSuccess();
-        if (pass) {
+        if (cbResult.isSuccess()) {
             return { pass: true, message: passMessage(cbResult, expected) };
         }
 

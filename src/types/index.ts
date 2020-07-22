@@ -1,7 +1,7 @@
 /// <reference types="jest"/>
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
-import { Result } from '@fgv/ts-utils';
+import { Result } from '../ts-utils';
 
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -43,6 +43,21 @@ declare global {
              * verifying that a test case fails.
              */
             toFailTest<T>(): R;
+
+            /**
+             * Use .toFailTestWith to test a custom matcher by
+             * verifying that a test case fails as expected and
+             * reports an error matching a stored snapshot.
+             */
+            toFailTestAndMatchSnapshot<T>(): R;
+
+            /**
+             * Use .toFailTestWith to test a custom matcher by
+             * verifying that a test case fails as expected and
+             * reports an error matching a supplied value.
+             * @param {string|string[]|RegExp} expected
+             */
+            toFailTestWith<T>(expected: string|string[]|RegExp): R;
         }
     }
 }

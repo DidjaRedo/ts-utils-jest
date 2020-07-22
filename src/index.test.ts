@@ -1,6 +1,6 @@
 import './index';
 
-import { fail, succeed } from '@fgv/ts-utils';
+import { fail, succeed } from '../../ts-utils';
 
 describe('verify matchers accessibility', () => {
     test('toFail exists and works', () => {
@@ -31,6 +31,12 @@ describe('verify matchers accessibility', () => {
         expect(() => {
             expect(true).toBe(false);
         }).toFailTest();
+    });
+
+    test('toFailTestAndMatchSnapshot exists and works', () => {
+        expect(() => {
+            expect(true).toBe(false);
+        }).toFailTestAndMatchSnapshot();
     });
 
     test('toFailTestWith exists and works', () => {
