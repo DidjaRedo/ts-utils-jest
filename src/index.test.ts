@@ -27,6 +27,42 @@ describe('verify matchers accessibility', () => {
         });
     });
 
+    test('toSucceedAndMatchSnapshot exists and works', () => {
+        expect(
+            succeed({
+                field: 'field',
+                child: {
+                    values: [{ number: 1 }, { number: 2 }],
+                },
+            })
+        ).toSucceedAndMatchSnapshot();
+    });
+
+    test('toSucceedAndMatchInlineSnapshot exists and works', () => {
+        expect(
+            succeed({
+                field: 'field',
+                child: {
+                    values: [{ number: 1 }, { number: 2 }],
+                },
+            })
+        ).toSucceedAndMatchInlineSnapshot(`
+      Object {
+        "child": Object {
+          "values": Array [
+            Object {
+              "number": 1,
+            },
+            Object {
+              "number": 2,
+            },
+          ],
+        },
+        "field": "field",
+      }
+    `);
+    });
+
     test('toFailTest exists and works', () => {
         expect(() => {
             expect(true).toBe(false);

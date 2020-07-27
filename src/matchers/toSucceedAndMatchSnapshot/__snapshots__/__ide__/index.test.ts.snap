@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`.toSucceedAndMatchSnapshot logs details correctly for a failed result: toFailTestAndMatchSnapshot 1`] = `
+"expect(callback).toSucceedAndMatchSnapshot(expected)
+  Expected: Callback to succeed with a result that matches the snapshot
+  Received: Callback failed"
+`;
+
+exports[`.toSucceedAndMatchSnapshot logs details correctly for a failed result: toFailTestAndMatchSnapshot 2`] = `
+"expect(received).not.toMatchSnapshot(hint)
+
+Matcher error: Snapshot matchers cannot be used with not"
+`;
+
+exports[`.toSucceedAndMatchSnapshot passes for a success result that matches the snapshot: toSucceedAndMatchSnapshot 1`] = `
+Object {
+  "nestedObject": Object {
+    "anArray": Array [
+      "element 1",
+      "element 2",
+    ],
+  },
+  "someField": "this is a value",
+}
+`;

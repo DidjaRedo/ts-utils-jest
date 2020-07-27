@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`.toSucceedAndMatchSnapshot logs details correctly for a failed result: toFailTestAndMatchSnapshot 1`] = `
+"expect(callback).toSucceedAndMatchInlineSnapshot(expected)
+  Expected: Callback to succeed with a result that matches the snapshot
+  Received: Callback failed"
+`;
+
+exports[`.toSucceedAndMatchSnapshot logs details correctly for a failed result: toFailTestAndMatchSnapshot 2`] = `
+"expect(received).not.toMatchInlineSnapshot(properties, snapshot)
+
+Matcher error: Snapshot matchers cannot be used with not"
+`;
