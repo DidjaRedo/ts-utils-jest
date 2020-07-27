@@ -6,3 +6,19 @@ exports[`verify matchers accessibility toFailTestAndMatchSnapshot exists and wor
 Expected: false
 Received: true"
 `;
+
+exports[`verify matchers accessibility toSucceedAndMatchSnapshot exists and works: toSucceedAndMatchSnapshot 1`] = `
+Object {
+  "child": Object {
+    "values": Array [
+      Object {
+        "number": 1,
+      },
+      Object {
+        "number": 2,
+      },
+    ],
+  },
+  "field": "field",
+}
+`;

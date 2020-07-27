@@ -28,6 +28,19 @@ declare global {
             toSucceedAndSatisfy<T>(test: (value: T) => boolean|void): R;
 
             /**
+             * Use .toSucceedAndMatchInlineSnapshot to verify that a Result<T> is a success
+             * and that the result value matches an inline snapshot
+             */
+            // eslint-disable-next-line @typescript-eslint/ban-types
+            toSucceedAndMatchInlineSnapshot<T>(snapshot: string|undefined): R;
+
+            /**
+             * Use .toSucceedAndMatchSnapshot to verify that a Result<T> is a success
+             * and that the result value matches a stored snapshot
+             */
+            toSucceedAndMatchSnapshot<T>(): R;
+
+            /**
              * Use .toFail to verify that a Result<T> is a failure
              */
             toFail<T>(): R;

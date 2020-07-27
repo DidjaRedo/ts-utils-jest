@@ -30,7 +30,7 @@ describe('.toSucceedWith', () => {
     });
 
     test('fails with a non-string and a RegExp', () => {
-        expect(succeed({ data: 'hello sailor'})).not.toSucceedWith(/sailor/i);
+        expect(succeed({ data: 'hello sailor' })).not.toSucceedWith(/sailor/i);
     });
 
     test('passes with a matching asymmetric match', () => {

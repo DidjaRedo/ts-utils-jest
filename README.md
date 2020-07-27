@@ -21,8 +21,10 @@ Also includes a handful of custom matchers to simplify the testing of other cust
     - [.toFail()](#tofail)
     - [.toFailWith(expected)](#tofailwithexpected)
     - [.toSucceed()](#tosucceed)
-    - [.toSucceedWith()](#tosucceedwith)
-    - [.toSucceedAndSatisfy()](#tosucceedandsatisfy)
+    - [.toSucceedWith(expected)](#tosucceedwithexpected)
+    - [.toSucceedAndSatisfy(cb)](#tosucceedandsatisfycb)
+    - [.toSucceedAndMatchSnapshot()](#tosucceedandmatchsnapshot)
+    - [.toSucceedAndMatchInlineSnapshot(snapshot)](#tosucceedandmatchinlinesnapshotsnapshot)
   - [Testing Custom Matchers](#testing-custom-matchers)
     - [.toFailTest()](#tofailtest)
     - [.toFailTestWith(expected)](#tofailtestwithexpected)
@@ -47,7 +49,7 @@ Note that snapshot testing for Jest itself can be tricky because different envir
 #### .toFail()
 
 Use '.toFail' to verify that a Result\<T\> is a failure result.
-```js
+```ts
 test('passes with a failure result', () => {
     expect(fail('oops')).toFail();
 });
@@ -62,7 +64,7 @@ test('fails with a success result', () => {
 Use '.toFailWith' to verify that a Result\<T\> is a failure result with a message that matches a supplied
 string or regular expression.
 
-```js
+```ts
     test('passes with a failure result and matching string or RegExp', () => {
         expect(fail('oops')).toFailWith('oops');
         expect(fail('oops')).toFailWith(/o.*/i);
@@ -82,7 +84,7 @@ string or regular expression.
 
 Use '.toSucceed' to verify that a Result\<T\> is a success result.
 
-```js
+```ts
     test('passes with a success result', () => {
         expect(succeed('hello')).toSucceed();
     });
@@ -92,12 +94,12 @@ Use '.toSucceed' to verify that a Result\<T\> is a success result.
     });
 ```
 
-#### .toSucceedWith()
+#### .toSucceedWith(expected)
 
 Use '.toSucceedWith' to verify that a Result\<T\> is a success and that the result value
 matches the supplied value.  Works with asymmetric matchers.
 
-```js
+```ts
     test('succeeds with a success result that matches expected', () => {
         expect(succeed('hello')).toSucceedWith('hello');
         expect(succeed('hello')).toSucceedWith(expect.stringMatching(/h.*/i));
@@ -138,12 +140,12 @@ matches the supplied value.  Works with asymmetric matchers.
     });
 ```
 
-#### .toSucceedAndSatisfy()
+#### .toSucceedAndSatisfy(cb)
 
 Use '.toSucceedAndSatisfy' to verify that a Result\<T\> is a success and that the result
 matches the supplied predicate.  Handles predicates that also use 'expect' to test the result object.
 
-```js
+```ts
     test('passes with a success value and a callback that returns true', () => {
         expect(succeed('hello')).toSucceedAndSatisfy((value: string) => value === 'hello');
     });
@@ -167,6 +169,54 @@ matches the supplied predicate.  Handles predicates that also use 'expect' to te
 
     test('fails with a failure value', () => {
         expect(fail('oops')).not.toSucceedAndSatisfy((value: string) => value === 'oops');
+    });
+```
+
+#### .toSucceedAndMatchSnapshot()
+
+Use .toSucceedAndMatchSnapshot to verify that a Result<T> is a success and that the result
+value matches a stored snapshot.
+
+```ts
+    test('passes for a success result that matches the snapshot', () => {
+        expect(succeed({
+            someField: 'this is a value',
+            nestedObject: {
+                anArray: ['element 1', 'element 2'],
+            },
+        })).toSucceedAndMatchSnapshot();
+    });
+
+    test('fails for a failure result', () => {
+        expect(fail('oops')).not.toSucceedAndMatchSnapshot();
+    });
+```
+
+#### .toSucceedAndMatchInlineSnapshot(snapshot)
+
+Use .toSucceedAndMatchInlineSnapshot to verify that a Result<T> is a success
+and that the result value matches an inline snapshot.
+
+```ts
+    test('passes for a success result that matches the snapshot', () => {
+        expect(
+            succeed({
+                someField: 'this is a value',
+                nestedObject: {
+                    anArray: ['element 1', 'element 2'],
+                },
+            })
+        ).toSucceedAndMatchInlineSnapshot(`
+      Object {
+        "nestedObject": Object {
+          "anArray": Array [
+            "element 1",
+            "element 2",
+          ],
+        },
+        "someField": "this is a value",
+      }
+    `);
     });
 ```
 
