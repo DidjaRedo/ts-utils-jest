@@ -1,6 +1,6 @@
 {
   "name": "@fgv/ts-utils-jest",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Custom matchers for ts-utils result class",
   "main": "dist/index.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "clean-jest": "jest --clear-cache",
     "update-snapshot": "jest --updateSnapshot",
     "coverage": "jest --coverage",
-    "lint": "eslint src -ext .ts",
+    "lint": "eslint src --ext .ts",
     "fixlint": "eslint src --ext .ts --fix"
   },
   "keywords": [
