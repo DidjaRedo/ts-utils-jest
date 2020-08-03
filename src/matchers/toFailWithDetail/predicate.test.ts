@@ -1,4 +1,4 @@
-import { failWithDetail, succeed } from '../../ts-utils';
+import { failWithDetail, succeedWithDetail } from '../../ts-utils';
 import { predicate } from './predicate';
 
 describe('toFailWith', () => {
@@ -15,7 +15,7 @@ describe('toFailWith', () => {
     });
 
     test('returns false for a success result', () => {
-        expect(predicate(succeed('hello'), 'hello', 'detail')).toBe(false);
+        expect(predicate(succeedWithDetail('hello'), 'hello', 'detail')).toBe(false);
     });
 
     test('returns false for a failure result but non-matching string or RegExp', () => {
