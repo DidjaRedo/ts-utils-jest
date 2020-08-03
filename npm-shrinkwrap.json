@@ -1,6 +1,6 @@
 {
   "name": "@fgv/ts-utils-jest",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -416,9 +416,9 @@
       }
     },
     "@fgv/ts-utils": {
-      "version": "0.1.5",
-      "resolved": "https://registry.npmjs.org/@fgv/ts-utils/-/ts-utils-0.1.5.tgz",
-      "integrity": "sha512-Z2JDUKOajM1DOpeEwdTN0zmbFtZYMsaYawF+kMNikimO2CglWwrCVC3+iAHVd4Ztubee3sbyjmYamVU8oegfDA==",
+      "version": "0.1.7",
+      "resolved": "https://registry.npmjs.org/@fgv/ts-utils/-/ts-utils-0.1.7.tgz",
+      "integrity": "sha512-MF8vTxloRYOf+tTTMHf9DRsnTXOEdZ0zEi0QJRejCR5rhsDKLmCyBaEtNVXUbqlnLBHhjvpk9Cf1nbF4Z+5uvA==",
       "requires": {
         "csv-parse": "^4.11.1",
         "mustache": "^4.0.1"
