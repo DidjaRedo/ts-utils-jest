@@ -20,6 +20,7 @@ Also includes a handful of custom matchers to simplify the testing of other cust
   - [Testing Result\<T\>](#testing-resultt)
     - [.toFail()](#tofail)
     - [.toFailWith(expected)](#tofailwithexpected)
+    - [.toFailWithDetail(expectedMessage, expectedDetail)](#tofailwithdetailexpectedmessage-expecteddetail)
     - [.toSucceed()](#tosucceed)
     - [.toSucceedWith(expected)](#tosucceedwithexpected)
     - [.toSucceedAndSatisfy(cb)](#tosucceedandsatisfycb)
@@ -77,6 +78,28 @@ string or regular expression.
     test('fails with a failure result but non-matching string or RegExp', () => {
         expect(fail('oops')).not.toFailWith('error');
         expect(fail('oops')).not.toFailWith(/x.*/i);
+    });
+```
+
+#### .toFailWithDetail(expectedMessage, expectedDetail)
+
+Use '.toFailWithDetail' to verify that a DetailedResult\<T\> is a failure result that matches both
+a supplied expected failure message (string, RegExp or undefined) and a supplied failure detail.
+
+```ts
+    test('passes with a failure result and matching string or RegExp', () => {
+        expect(failWithDetail('oops', 'detail')).toFailWithDetail('oops', 'detail');
+        expect(failWithDetail('oops', { detail: 'detail' })).toFailWithDetail(/o.*/i, { detail: 'detail' });
+    });
+
+    test('fails with a success result', () => {
+        expect(succeed('hello')).not.toFailWithDetail('hello', 'detail');
+    });
+
+    test('fails with a failure result but non-matching string or RegExp, or with a non-matching detail', () => {
+        expect(failWithDetail('oops', 'detail')).not.toFailWithDetail('error', 'detail');
+        expect(failWithDetail('oops', 'detail')).not.toFailWithDetail(/x.*/i, 'detail');
+        expect(failWithDetail('error', 'other detail')).not.toFailWithDetail('error', 'detail');
     });
 ```
 
