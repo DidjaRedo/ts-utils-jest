@@ -9,8 +9,9 @@ declare global {
     namespace jest {
         interface Matchers<R> {
             /**
-             * Use .toFailWith to verify that a Result<T> is a failure
-             * that matches a supplied string, RegExp or undefined value
+             * Use .toFailWithDetail to verify that a DetailedResult<T> is
+             * a failure that matches both a supplied expected failure message
+             * (string, RegExp or undefined) and a supplied failure detail.
              * @param {string|RegExp|undefined} message
              */
             toFailWithDetail<TD>(message: string|RegExp|undefined, detail: TD): R;
