@@ -420,11 +420,11 @@
       }
     },
     "@fgv/ts-utils": {
-      "version": "0.2.0",
-      "resolved": "https://registry.npmjs.org/@fgv/ts-utils/-/ts-utils-0.2.0.tgz",
-      "integrity": "sha512-TjrEprgK7wwLdeWnwTLwNEQPiJaN1VgKbEjPkiARpzi3BwYye9sQGkQfewxDngDBuxF3nAT3u3ujEeGo7aPBeg==",
+      "version": "0.2.1",
+      "resolved": "https://registry.npmjs.org/@fgv/ts-utils/-/ts-utils-0.2.1.tgz",
+      "integrity": "sha512-n8T/70HnRlBk0AVua5ORAq2+WHOxnre+6vmHiUZZYvRWrHz1AH1tVuySSq/tAiNstdBxK56H7eAYomLI18+Rvw==",
       "requires": {
-        "csv-parse": "^4.11.1",
+        "csv-parse": "^4.12.0",
         "mustache": "^4.0.1"
       }
     },
