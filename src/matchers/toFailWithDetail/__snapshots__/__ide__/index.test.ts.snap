@@ -6,7 +6,8 @@ Expected:
   Failure with \\"hello\\"
   Detail: \\"\\"detail\\"\\"
 Received:
-  Success with \\"hello\\""
+  Success with \\"\\"hello\\"\\"
+  Detail: \\"undefined\\""
 `;
 
 exports[`.toFailWithDetail reports details correctly on a failure due to non-matching detail value: toFailTestAndMatchSnapshot 1`] = `
