@@ -11,9 +11,9 @@ declare global {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
         interface Matchers<R> {
             /**
-             * Use .toSucceedWith to verify that a Result<T> is a success
-             * and that the result value matches the supplied value
-             * @param {unknown} expected
+             * Use .toSucceedWithDetail to verify that a DetailedResult<T, TD> is
+             * a success and that the result value and detail matches the supplied
+             * values
              */
             toSucceedWithDetail<TD>(expected: unknown, detail: TD|undefined): R;
         }

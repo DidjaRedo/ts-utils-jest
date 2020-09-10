@@ -1,5 +1,6 @@
 /// <reference types="jest"/>
 
+/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
 declare namespace jest {
     interface Matchers<R> {
         /**
@@ -13,6 +14,14 @@ declare namespace jest {
          * @param {unknown} expected
          */
         toSucceedWith(expected: unknown): R;
+
+        /**
+         * Use .toSucceedWithDetail to verify that a DetailedResult<T, TD> is
+         * a success and that the result value and detail matches the supplied
+         * values
+         * @param {unknown} expected
+         */
+        toSucceedWithDetail<TD>(expected: unknown, detail: TD|undefined): R;
 
         /**
          * Use .toSucceedAndSatisfy to verify that a Result<T> is a success

@@ -1,6 +1,6 @@
 import './index';
 
-import { fail, failWithDetail, succeed } from '../../ts-utils';
+import { fail, failWithDetail, succeed, succeedWithDetail } from '../../ts-utils';
 
 describe('verify matchers accessibility', () => {
     test('toFail exists and works', () => {
@@ -22,6 +22,10 @@ describe('verify matchers accessibility', () => {
 
     test('toSucceedWith exists and works', () => {
         expect(succeed('howdy')).toSucceedWith('howdy');
+    });
+
+    test('toSucceedWithDetail exists and works', () => {
+        expect(succeedWithDetail('howdy', 'detail')).toSucceedWithDetail('howdy', 'detail');
     });
 
     test('toSucceedAndSatisfy exists and works', () => {

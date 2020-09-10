@@ -1,6 +1,6 @@
 {
   "name": "@fgv/ts-utils-jest",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Custom matchers for ts-utils result class",
   "main": "dist/index.js",
   "scripts": {
