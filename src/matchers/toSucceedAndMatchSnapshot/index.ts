@@ -1,4 +1,4 @@
-
+/* eslint-disable @typescript-eslint/no-unused-vars,no-unused-vars */
 import { Context } from 'jest-snapshot/build/types';
 import { Result } from '../../ts-utils';
 import { matcherHint } from 'jest-matcher-utils';

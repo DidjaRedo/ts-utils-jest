@@ -1,6 +1,6 @@
 {
   "name": "@fgv/ts-utils-jest",
-  "version": "0.2.2",
+  "version": "0.3.1",
   "description": "Custom matchers for ts-utils result class",
   "main": "dist/index.js",
   "scripts": {
@@ -15,6 +15,10 @@
     "lint": "eslint src --ext .ts",
     "fixlint": "eslint src --ext .ts --fix"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DidjaRedo/ts-utils-jest.git"
+  },
   "keywords": [
     "typescript",
     "ts-utils",
@@ -23,17 +27,17 @@
   "author": "Erik Fortune",
   "license": "MIT",
   "dependencies": {
-    "@fgv/ts-utils": "^0.2.2",
+    "@fgv/ts-utils": "^0.3.1",
     "expect": "^26.4.2",
     "jest-matcher-utils": "^26.4.2",
     "jest-snapshot": "^26.4.2"
   },
   "devDependencies": {
     "@types/jest": "^26.0.13",
-    "@types/node": "^14.6.4",
-    "@typescript-eslint/eslint-plugin": "^4.1.0",
-    "@typescript-eslint/parser": "^4.1.0",
-    "eslint": "^7.8.1",
+    "@types/node": "^14.10.1",
+    "@typescript-eslint/eslint-plugin": "^4.1.1",
+    "@typescript-eslint/parser": "^4.1.1",
+    "eslint": "^7.9.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",
