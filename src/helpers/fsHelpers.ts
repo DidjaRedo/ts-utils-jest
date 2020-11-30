@@ -21,7 +21,7 @@
  */
 
 import * as path from 'path';
-import fs from 'fs';
+const fs = jest.requireActual('fs');
 
 export interface MockFileConfig {
     path: string;
@@ -130,13 +130,13 @@ export class MockFileSystem {
 
     public startSpies(): ReadWriteSpies {
         return new ReadWriteSpies(
-            jest.spyOn(fs, 'readFileSync').mockImplementation((wanted: string|number|Buffer|URL) => {
+            jest.spyOn(fs, 'readFileSync').mockImplementation((wanted: unknown) => {
                 if (typeof wanted !== 'string') {
                     throw new Error('readFileSync mock supports only string parameters');
                 }
                 return this.readMockFileSync(wanted);
             }),
-            jest.spyOn(fs, 'writeFileSync').mockImplementation((wanted: string|number|Buffer|URL, payload: unknown) => {
+            jest.spyOn(fs, 'writeFileSync').mockImplementation((wanted: unknown, payload: unknown) => {
                 if ((typeof wanted !== 'string') || (typeof payload !== 'string')) {
                     throw new Error('writeFileSync mock supports only string parameters');
                 }
