@@ -84,6 +84,22 @@ describe('MockFileSystem class', () => {
                 mockFs.readMockFileSync('path/to/writableFile.json');
             }).toThrowError(/mock file not found/i);
         });
+
+        describe('with mockWriteOnly option set to true', () => {
+            test('reads a file that is not in the config but which actually exists', () => {
+                const mockFs = new MockFileSystem(configs, { mockWriteOnly: true });
+                expect(() => {
+                    expect(mockFs.readMockFileSync('test/data/testData.json')).toEqual('{ "filename": "testData.json" }');
+                }).not.toThrow();
+            });
+
+            test('fails for a file that is not in the config and does not actually exist', () => {
+                const mockFs = new MockFileSystem(configs, { mockWriteOnly: true });
+                expect(() => {
+                    mockFs.readMockFileSync('test/data/notTestData.json');
+                }).toThrowError(/no such file or directory/i);
+            });
+        });
     });
 
     describe('writeMockFileSync method', () => {
