@@ -21,7 +21,7 @@
  */
 
 import * as path from 'path';
-const fs = jest.requireActual('fs');
+import fs from 'fs';
 
 export interface MockFileConfig {
     path: string;
@@ -54,15 +54,19 @@ export interface MockFileSystemOptions {
     mockWriteOnly?: boolean;
 }
 
+type ReadFunc = (path: string|number|Buffer|URL, options?: { encoding?: null; flag?: string; } | null) => Buffer;
+
 export class MockFileSystem {
     protected readonly _options?: MockFileSystemOptions;
     protected readonly _config: Map<string, MockFileConfig>;
     protected readonly _data: Map<string, string>;
+    protected readonly _realReadFileSync: ReadFunc;
 
     public constructor(configs: Iterable<MockFileConfig>, options?: MockFileSystemOptions) {
         this._config = new Map<string, MockFileConfig>();
         this._data = new Map<string, string>();
         this._options = options;
+        this._realReadFileSync = fs.readFileSync;
 
         for (const config of configs) {
             const fullPath = path.resolve(config.path);
@@ -84,12 +88,12 @@ export class MockFileSystem {
                 if (this._options?.mockWriteOnly !== true) {
                     throw new Error(`Mock file not found: ${wanted}`);
                 }
-                const body = fs.readFileSync(fullPathWanted).toString();
+                const body = this._realReadFileSync(fullPathWanted).toString();
                 this._data.set(fullPathWanted, body);
             }
             else {
                 const fullBackingPath = path.resolve(config.backingFile);
-                const body = fs.readFileSync(fullBackingPath).toString();
+                const body = this._realReadFileSync(fullBackingPath).toString();
                 this._data.set(fullPathWanted, body);
             }
         }
