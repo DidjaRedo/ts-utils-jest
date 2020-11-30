@@ -52,6 +52,7 @@ export class ReadWriteSpies {
 
 export interface MockFileSystemOptions {
     mockWriteOnly?: boolean;
+    allowUnknownMockWrite?: boolean;
 }
 
 type ReadFunc = (path: string|number|Buffer|URL, options?: { encoding?: null; flag?: string; } | null) => Buffer;
@@ -61,6 +62,7 @@ export class MockFileSystem {
     protected readonly _config: Map<string, MockFileConfig>;
     protected readonly _data: Map<string, string>;
     protected readonly _realReadFileSync: ReadFunc;
+    protected readonly _extraWrites: string[] = [];
 
     public constructor(configs: Iterable<MockFileConfig>, options?: MockFileSystemOptions) {
         this._config = new Map<string, MockFileConfig>();
@@ -111,12 +113,22 @@ export class MockFileSystem {
         const fullPathWanted = path.resolve(wanted);
         const config = this._config.get(fullPathWanted);
         if (config === undefined) {
-            throw new Error(`Mock path not found: ${wanted}`);
+            if (this._options?.allowUnknownMockWrite !== true) {
+                throw new Error(`Mock path not found: ${wanted}`);
+            }
+            this._extraWrites.push(fullPathWanted);
         }
-        if (config.writable !== true) {
+        else if (config.writable !== true) {
             throw new Error(`Mock permission denied: ${wanted}`);
         }
         this._data.set(fullPathWanted, body);
+    }
+
+    public getExtraFilesWritten(): string[] {
+        return Array.from(this._extraWrites);
+    }
+    public tryGetPayload(want: string): string|undefined {
+        return this._data.get(path.resolve(want));
     }
 
     public reset(): void {
@@ -130,6 +142,11 @@ export class MockFileSystem {
                 this._data.set(path.resolve(config.path), config.payload);
             }
         }
+
+        for (const path of this._extraWrites) {
+            this._data.delete(path);
+        }
+        this._extraWrites.splice(0, this._extraWrites.length);
     }
 
     public startSpies(): ReadWriteSpies {
