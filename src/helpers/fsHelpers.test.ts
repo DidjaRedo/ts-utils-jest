@@ -164,6 +164,27 @@ describe('MockFileSystem class', () => {
                 mockFs.writeMockFileSync('./test.json', '["payload"]');
             }).toThrowError(/mock path not found/i);
         });
+
+        describe('with allowUnknownMockWrite', () => {
+            test('fails to write a mock file that is not writable', () => {
+                const mockFs = new MockFileSystem(configs, { allowUnknownMockWrite: true });
+                expect(() => {
+                    mockFs.writeMockFileSync('path/to/payloadFile.json', '["payload"]');
+                }).toThrowError(/mock permission denied/i);
+
+                expect(mockFs.readMockFileSync('path/to/payloadFile.json'))
+                    .toEqual('{ "filename": "inlineData" }');
+            });
+
+            test('writes a file that is not in the config', () => {
+                const mockFs = new MockFileSystem(configs, { allowUnknownMockWrite: true });
+                expect(() => {
+                    mockFs.writeMockFileSync('./test.json', '["payload"]');
+                }).not.toThrow();
+                expect(mockFs.getExtraFilesWritten()).toEqual([expect.stringContaining('/test.json')]);
+                expect(mockFs.tryGetPayload('./test.json')).toEqual('["payload"]');
+            });
+        });
     });
 
     describe('reset method', () => {
@@ -189,6 +210,22 @@ describe('MockFileSystem class', () => {
                 .toEqual('{ "filename": "testData.json" }');
             expect(mockFs.readMockFileSync('path/to/writablePayloadFile.json'))
                 .toEqual('{ "filename": "writableInlineData" }');
+        });
+
+        describe('with allowUnknownMockWrite', () => {
+            test('clears a written extra file', () => {
+                const mockFs = new MockFileSystem(configs, { allowUnknownMockWrite: true });
+                expect(() => {
+                    mockFs.writeMockFileSync('./test.json', '["payload"]');
+                }).not.toThrow();
+                expect(mockFs.getExtraFilesWritten()).toEqual([expect.stringContaining('/test.json')]);
+                expect(mockFs.tryGetPayload('./test.json')).toEqual('["payload"]');
+
+                mockFs.reset();
+
+                expect(mockFs.getExtraFilesWritten()).toHaveLength(0);
+                expect(mockFs.tryGetPayload('./test.json')).toBeUndefined();
+            });
         });
     });
 
