@@ -50,13 +50,19 @@ export class ReadWriteSpies {
     }
 }
 
+export interface MockFileSystemOptions {
+    mockWriteOnly?: boolean;
+}
+
 export class MockFileSystem {
+    protected readonly _options?: MockFileSystemOptions;
     protected readonly _config: Map<string, MockFileConfig>;
     protected readonly _data: Map<string, string>;
 
-    public constructor(configs: Iterable<MockFileConfig>) {
+    public constructor(configs: Iterable<MockFileConfig>, options?: MockFileSystemOptions) {
         this._config = new Map<string, MockFileConfig>();
         this._data = new Map<string, string>();
+        this._options = options;
 
         for (const config of configs) {
             const fullPath = path.resolve(config.path);
@@ -75,11 +81,17 @@ export class MockFileSystem {
         if (!this._data.has(fullPathWanted)) {
             const config = this._config.get(fullPathWanted);
             if (config?.backingFile === undefined) {
-                throw new Error(`Mock file not found: ${wanted}`);
+                if (this._options?.mockWriteOnly !== true) {
+                    throw new Error(`Mock file not found: ${wanted}`);
+                }
+                const body = fs.readFileSync(fullPathWanted).toString();
+                this._data.set(fullPathWanted, body);
             }
-            const fullBackingPath = path.resolve(config.backingFile);
-            const body = fs.readFileSync(fullBackingPath).toString();
-            this._data.set(fullPathWanted, body);
+            else {
+                const fullBackingPath = path.resolve(config.backingFile);
+                const body = fs.readFileSync(fullBackingPath).toString();
+                this._data.set(fullPathWanted, body);
+            }
         }
 
         const payload = this._data.get(fullPathWanted);
