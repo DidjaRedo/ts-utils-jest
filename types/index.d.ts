@@ -1,10 +1,10 @@
 /// <reference types="jest"/>
 
-import { DetailedResult, Result, ResultDetailType, ResultValueType } from '@fgv/ts-utils';
+import { Result, ResultDetailType, ResultValueType } from '@fgv/ts-utils';
 
 /* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
 declare namespace jest {
-    interface Matchers<R, T extends Result<unknown>> {
+    interface Matchers<R, T extends Result<unknown>|{}> {
         /**
          * Use .toSucceed to verify that a Result<T> is a success
          */
