@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars,no-unused-vars */
 import { Context } from 'jest-snapshot/build/types';
-import { Result } from '../../ts-utils';
+import { Result } from '@fgv/ts-utils';
 import { matcherHint } from 'jest-matcher-utils';
 import { printReceivedResult } from '../../utils/matcherHelpers';
 import { toMatchInlineSnapshot } from 'jest-snapshot';
@@ -8,7 +8,8 @@ import { toMatchInlineSnapshot } from 'jest-snapshot';
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace jest {
-        interface Matchers<R> {
+        // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars, @typescript-eslint/ban-types
+        interface Matchers<R, T extends Result<unknown>|{}> {
             /**
              * Use .toSucceedAndMatchInlineSnapshot to verify that a Result<T> is a success
              * and that the result value matches an inline snapshot

@@ -22,14 +22,14 @@ describe('.toSucceedAndSatisfy', () => {
     });
 
     test('fails with a success value but a callback that fails an expectation', () => {
-        expect(succeed('hello')).not.toSucceedAndSatisfy((value: string) => {
+        expect(succeed('hello')).not.toSucceedAndSatisfy((value) => {
             expect(value).toBe('goodbye');
             return true;
         });
     });
 
     test('fails with a success value but a callback that throws an exception', () => {
-        expect(succeed('hello')).not.toSucceedAndSatisfy((_value: string) => {
+        expect(succeed('hello')).not.toSucceedAndSatisfy((_value) => {
             throw new Error('UH OH AN ERRROR');
         });
     });

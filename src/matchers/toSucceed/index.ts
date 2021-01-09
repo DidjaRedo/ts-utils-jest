@@ -1,13 +1,14 @@
 import { matcherName, predicate } from './predicate';
 import { printExpectedResult, printReceivedResult } from '../../utils/matcherHelpers';
 
-import { Result } from '../../ts-utils';
+import { Result } from '@fgv/ts-utils';
 import { matcherHint } from 'jest-matcher-utils';
 
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace jest {
-        interface Matchers<R> {
+        // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars, @typescript-eslint/ban-types
+        interface Matchers<R, T extends Result<unknown>|{}> {
             /**
              * Use .toSucceed to verify that a Result<T> is a success
              */

@@ -7,7 +7,8 @@ import { Result, ResultDetailType, ResultValueType } from '@fgv/ts-utils';
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace jest {
-        interface Matchers<R, T extends Result<unknown>> {
+        // eslint-disable-next-line @typescript-eslint/ban-types
+        interface Matchers<R, T extends Result<unknown>|{}> {
             /**
              * Use .toSucceed to verify that a Result<T> is a success
              */

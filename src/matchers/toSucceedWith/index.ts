@@ -1,4 +1,4 @@
-import { Result, ResultValueType } from '../../ts-utils';
+import { Result, ResultValueType } from '@fgv/ts-utils';
 import { matcherName, predicate } from './predicate';
 import { printExpectedResult, printReceivedResult } from '../../utils/matcherHelpers';
 
@@ -7,7 +7,8 @@ import { matcherHint } from 'jest-matcher-utils';
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace jest {
-        interface Matchers<R, T extends Result<unknown>> {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars, @typescript-eslint/ban-types
+        interface Matchers<R, T extends Result<unknown>|{}> {
             /**
              * Use .toSucceedWith to verify that a Result<T> is a success
              * and that the result value matches the supplied value

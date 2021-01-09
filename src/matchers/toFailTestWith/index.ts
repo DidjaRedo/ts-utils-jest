@@ -2,13 +2,15 @@
 import { Failure, Success } from '../../ts-utils';
 import { matcherName, predicate } from './predicate';
 
+import { Result } from '@fgv/ts-utils';
 import { matcherHint } from 'jest-matcher-utils';
 import { printExpectedResult } from '../../utils/matcherHelpers';
 
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace jest {
-        interface Matchers<R> {
+        // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars, @typescript-eslint/ban-types
+        interface Matchers<R, T extends Result<unknown>|{}> {
             /**
              * Use .toFailTestWith to test a custom matcher by
              * verifying that a test case fails as expected and
