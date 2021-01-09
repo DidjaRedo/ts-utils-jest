@@ -1,20 +1,20 @@
+import { Result, ResultValueType } from '../../ts-utils';
 import { matcherName, predicate } from './predicate';
 import { printExpectedResult, printReceivedResult } from '../../utils/matcherHelpers';
 
-import { Result } from '../../ts-utils';
 import { matcherHint } from 'jest-matcher-utils';
 
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace jest {
-        interface Matchers<R> {
+        interface Matchers<R, T extends Result<unknown>> {
             /**
              * Use .toSucceedAndSatisfy to verify that a Result<T> is a success
              * and that the supplied test function returns true (or void)
              * for the resulting value
-             * @param {(value: T) => boolean|void} test
+             * @param {(value: ResultValueType<T>) => boolean|void} test
              */
-            toSucceedAndSatisfy<T>(test: (value: T) => boolean|void): R;
+            toSucceedAndSatisfy(test: (value: ResultValueType<T>) => boolean|void): R;
         }
     }
 }

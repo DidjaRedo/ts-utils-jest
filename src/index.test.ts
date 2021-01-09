@@ -1,6 +1,6 @@
 import './index';
 
-import { fail, failWithDetail, succeed, succeedWithDetail } from '../../ts-utils';
+import { fail, failWithDetail, succeed, succeedWithDetail } from '@fgv/ts-utils';
 
 describe('verify matchers accessibility', () => {
     test('toFail exists and works', () => {
@@ -13,7 +13,7 @@ describe('verify matchers accessibility', () => {
     });
 
     test('toFailWithDetail exists and works', () => {
-        expect(failWithDetail('oops', 'detail')).toFailWithDetail('oops', 'detail');
+        expect(failWithDetail<string, string>('oops', 'detail')).toFailWithDetail('oops', 'detail');
     });
 
     test('toSucceed exists and works', () => {

@@ -1,24 +1,24 @@
+import { Result, ResultValueType } from '../../ts-utils';
 import { matcherName, predicate } from './predicate';
 import { printExpectedResult, printReceivedResult } from '../../utils/matcherHelpers';
 
-import { Result } from '../../ts-utils';
 import { matcherHint } from 'jest-matcher-utils';
 
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace jest {
-        interface Matchers<R> {
+        interface Matchers<R, T extends Result<unknown>> {
             /**
              * Use .toSucceedWith to verify that a Result<T> is a success
              * and that the result value matches the supplied value
              * @param {unknown} expected
              */
-            toSucceedWith(expected: unknown): R;
+            toSucceedWith(expected: ResultValueType<T>|RegExp): R;
         }
     }
 }
 
-function passMessage<T>(received: Result<T>, expected: T): () => string {
+function passMessage<T extends Result<unknown>>(received: T, expected: ResultValueType<T>|RegExp): () => string {
     return () => [
         matcherHint(`.not.${matcherName}`),
         printExpectedResult('success', false, expected),
@@ -26,7 +26,7 @@ function passMessage<T>(received: Result<T>, expected: T): () => string {
     ].join('\n');
 }
 
-function failMessage<T>(received: Result<T>, expected: T): () => string {
+function failMessage<T extends Result<unknown>>(received: T, expected: ResultValueType<T>|RegExp): () => string {
     return () => [
         matcherHint(`${matcherName}`),
         printExpectedResult('success', true, expected),
@@ -35,7 +35,7 @@ function failMessage<T>(received: Result<T>, expected: T): () => string {
 }
 
 export default {
-    toSucceedWith: function<T> (received: Result<T>, expected: unknown): jest.CustomMatcherResult {
+    toSucceedWith: function<T extends Result<unknown>> (received: T, expected: ResultValueType<T>|RegExp): jest.CustomMatcherResult {
         const pass = predicate(received, expected);
         if (pass) {
             return { pass: true, message: passMessage(received, expected) };
