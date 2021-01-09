@@ -1,7 +1,7 @@
+import { DetailedResult, Result, ResultDetailType, ResultValueType } from '../../ts-utils';
 import { matcherName, predicate } from './predicate';
 import { printExpectedDetailedResult, printReceivedDetailedResult } from '../../utils/matcherHelpers';
 
-import { DetailedResult } from '../../ts-utils';
 import { matcherHint } from 'jest-matcher-utils';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
@@ -9,18 +9,18 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace jest {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
-        interface Matchers<R> {
+        interface Matchers<R, T extends Result<unknown>> {
             /**
              * Use .toSucceedWithDetail to verify that a DetailedResult<T, TD> is
              * a success and that the result value and detail matches the supplied
              * values
              */
-            toSucceedWithDetail<TD>(expected: unknown, detail: TD|undefined): R;
+            toSucceedWithDetail(expected: ResultValueType<T>|RegExp, detail: ResultDetailType<T>|undefined): R;
         }
     }
 }
 
-function passMessage<T, TD>(received: DetailedResult<T, TD>, expected: T, expectedDetail: TD|undefined): () => string {
+function passMessage<T extends DetailedResult<unknown, unknown>>(received: T, expected: ResultValueType<T>|RegExp, expectedDetail: ResultDetailType<T>|undefined): () => string {
     return () => [
         matcherHint(`.not.${matcherName}`),
         printExpectedDetailedResult('success', false, expected, expectedDetail),
@@ -28,7 +28,7 @@ function passMessage<T, TD>(received: DetailedResult<T, TD>, expected: T, expect
     ].join('\n');
 }
 
-function failMessage<T, TD>(received: DetailedResult<T, TD>, expected: T, expectedDetail: TD|undefined): () => string {
+function failMessage<T extends DetailedResult<unknown, unknown>>(received: T, expected: ResultValueType<T>|RegExp, expectedDetail: ResultDetailType<T>|undefined): () => string {
     return () => [
         matcherHint(`${matcherName}`),
         printExpectedDetailedResult('success', true, expected, expectedDetail),
@@ -37,7 +37,11 @@ function failMessage<T, TD>(received: DetailedResult<T, TD>, expected: T, expect
 }
 
 export default {
-    toSucceedWithDetail: function<T, TD> (received: DetailedResult<T, TD>, expected: unknown, detail: TD|undefined): jest.CustomMatcherResult {
+    toSucceedWithDetail: function<T extends DetailedResult<unknown, unknown>> (
+        received: T,
+        expected: ResultValueType<T>|RegExp,
+        detail: ResultDetailType<T>|undefined
+    ): jest.CustomMatcherResult {
         const pass = predicate(received, expected, detail);
         if (pass) {
             return { pass: true, message: passMessage(received, expected, detail) };

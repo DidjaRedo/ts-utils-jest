@@ -1,4 +1,4 @@
-import { failWithDetail, succeed } from '../../ts-utils';
+import { failWithDetail, succeedWithDetail } from '../../ts-utils';
 import matcher from './';
 import toFailTestAndMatchSnapshot from '../toFailTestAndMatchSnapshot';
 
@@ -14,7 +14,7 @@ describe('.toFailWithDetail', () => {
     });
 
     test('fails with a success result', () => {
-        expect(succeed('hello')).not.toFailWithDetail('hello', 'detail');
+        expect(succeedWithDetail('hello')).not.toFailWithDetail('hello', 'detail');
     });
 
     test('fails with a failure result but non-matching string or RegExp, or with a non-matching detail', () => {
@@ -25,7 +25,7 @@ describe('.toFailWithDetail', () => {
 
     test('reports details correctly on a failure due to a success result', () => {
         expect(() => {
-            expect(succeed('hello')).toFailWithDetail('hello', 'detail');
+            expect(succeedWithDetail('hello')).toFailWithDetail('hello', 'detail');
         }).toFailTestAndMatchSnapshot();
     });
 

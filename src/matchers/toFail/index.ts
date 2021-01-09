@@ -16,7 +16,7 @@ declare global {
     }
 }
 
-function passMessage<T>(received: Result<T>): () => string {
+function passMessage<T extends Result<unknown>>(received: T): () => string {
     return () => [
         matcherHint(`.not.${matcherName}`),
         printExpectedResult('failure', false),
@@ -24,7 +24,7 @@ function passMessage<T>(received: Result<T>): () => string {
     ].join('\n');
 }
 
-function failMessage<T>(received: Result<T>): () => string {
+function failMessage<T extends Result<unknown>>(received: T): () => string {
     return () => [
         matcherHint(`${matcherName}`),
         printExpectedResult('failure', true),
@@ -33,7 +33,7 @@ function failMessage<T>(received: Result<T>): () => string {
 }
 
 export default {
-    toFail: function<T> (received: Result<T>): jest.CustomMatcherResult {
+    toFail: function<T extends Result<unknown>> (received: T): jest.CustomMatcherResult {
         const pass = predicate(received);
         if (pass) {
             return { pass: true, message: passMessage(received) };

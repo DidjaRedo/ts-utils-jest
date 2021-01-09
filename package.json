@@ -1,6 +1,6 @@
 {
   "name": "@fgv/ts-utils-jest",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "Custom matchers for ts-utils result class",
   "main": "dist/index.js",
   "scripts": {
@@ -27,7 +27,7 @@
   "author": "Erik Fortune",
   "license": "MIT",
   "dependencies": {
-    "@fgv/ts-utils": "^0.3.13",
+    "@fgv/ts-utils": "^0.3.14",
     "expect": "^26.4.2",
     "jest-matcher-utils": "^26.4.2",
     "jest-snapshot": "^26.4.2",
