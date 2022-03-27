@@ -1,5 +1,5 @@
-import * as CLI from './cli';
-import * as IDE from './ide';
+import CLI from './cli';
+import IDE from './ide';
 
 describe('resolver tests', () => {
     test('CLI resolver roundtrips correctly', () => {
