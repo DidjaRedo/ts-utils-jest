@@ -41,10 +41,10 @@ function failMessage<T>(received: Result<T>, cbResult: Result<boolean|void>): ()
     else if (cbResult.value === false) {
         got.push('  Callback returned false');
     }
-    // istanbul ignore else
     else if (cbResult.value === undefined) {
         got.push('  Callback was not invoked');
     }
+    // istanbul ignore next
     else {
         // istanbul ignore next
         throw new Error('Internal error: toSucceedAndSatisfy.failMessage passed success with true');
