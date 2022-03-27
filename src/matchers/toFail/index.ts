@@ -1,13 +1,14 @@
 import { matcherName, predicate } from './predicate';
 import { printExpectedResult, printReceivedResult } from '../../utils/matcherHelpers';
 
-import { Result } from '../../ts-utils';
+import { Result } from '@fgv/ts-utils';
 import { matcherHint } from 'jest-matcher-utils';
 
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace jest {
-        interface Matchers<R> {
+        // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars, @typescript-eslint/ban-types
+        interface Matchers<R, T extends Result<unknown>|{}> {
             /**
              * Use .toFail to verify that a Result<T> is a failure
              */
@@ -16,7 +17,7 @@ declare global {
     }
 }
 
-function passMessage<T>(received: Result<T>): () => string {
+function passMessage<T extends Result<unknown>>(received: T): () => string {
     return () => [
         matcherHint(`.not.${matcherName}`),
         printExpectedResult('failure', false),
@@ -24,7 +25,7 @@ function passMessage<T>(received: Result<T>): () => string {
     ].join('\n');
 }
 
-function failMessage<T>(received: Result<T>): () => string {
+function failMessage<T extends Result<unknown>>(received: T): () => string {
     return () => [
         matcherHint(`${matcherName}`),
         printExpectedResult('failure', true),
@@ -33,7 +34,7 @@ function failMessage<T>(received: Result<T>): () => string {
 }
 
 export default {
-    toFail: function<T> (received: Result<T>): jest.CustomMatcherResult {
+    toFail: function<T extends Result<unknown>> (received: T): jest.CustomMatcherResult {
         const pass = predicate(received);
         if (pass) {
             return { pass: true, message: passMessage(received) };

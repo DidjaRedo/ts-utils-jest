@@ -1,19 +1,21 @@
 /// <reference types="jest"/>
 
+import { Result, ResultDetailType, ResultValueType } from '@fgv/ts-utils';
+
 /* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
 declare namespace jest {
-    interface Matchers<R> {
+    interface Matchers<R, T extends Result<unknown>|{}> {
         /**
          * Use .toSucceed to verify that a Result<T> is a success
          */
-        toSucceed<T>(): R;
+        toSucceed(): R;
 
         /**
          * Use .toSucceedWith to verify that a Result<T> is a success
          * and that the result value matches the supplied value
          * @param {unknown} expected
          */
-        toSucceedWith(expected: unknown): R;
+        toSucceedWith(expected: ResultValueType<T>): R;
 
         /**
          * Use .toSucceedWithDetail to verify that a DetailedResult<T, TD> is
@@ -21,40 +23,40 @@ declare namespace jest {
          * values
          * @param {unknown} expected
          */
-        toSucceedWithDetail<TD>(expected: unknown, detail: TD|undefined): R;
+        toSucceedWithDetail(expected: ResultValueType<T>, detail: ResultDetailType<T>|undefined): R;
 
         /**
          * Use .toSucceedAndSatisfy to verify that a Result<T> is a success
          * and that the supplied test function returns true (or void)
          * for the resulting value
-         * @param {(value: T) => boolean|void} test
+         * @param {(value: ResultValueType<T>) => boolean|void} test
          */
-        toSucceedAndSatisfy<T>(test: (value: T) => boolean|void): R;
+        toSucceedAndSatisfy(test: (value: ResultValueType<T>) => boolean|void): R;
 
         /**
          * Use .toSucceedAndMatchInlineSnapshot to verify that a Result<T> is a success
          * and that the result value matches an inline snapshot
          */
         // eslint-disable-next-line @typescript-eslint/ban-types
-        toSucceedAndMatchInlineSnapshot<T>(snapshot: string|undefined): R;
+        toSucceedAndMatchInlineSnapshot(snapshot: string|undefined): R;
 
         /**
          * Use .toSucceedAndMatchSnapshot to verify that a Result<T> is a success
          * and that the result value matches a stored snapshot
          */
-        toSucceedAndMatchSnapshot<T>(): R;
+        toSucceedAndMatchSnapshot(): R;
 
         /**
          * Use .toFail to verify that a Result<T> is a failure
          */
-        toFail<T>(): R;
+        toFail(): R;
 
         /**
          * Use .toFailWith to verify that a Result<T> is a failure
          * that matches a supplied string, RegExp or undefined value
          * @param {string|RegExp|undefined} message
          */
-        toFailWith<T>(expected: string|RegExp|undefined): R;
+        toFailWith(expected: string|RegExp|undefined): R;
 
         /**
          * Use .toFailWithDetail to verify that a DetailedResult<T> is
@@ -62,20 +64,20 @@ declare namespace jest {
          * (string, RegExp or undefined) and a supplied failure detail.
          * @param {string|RegExp|undefined} message
          */
-        toFailWithDetail<TD>(message: string|RegExp|undefined, detail: TD): R;
+        toFailWithDetail(message: string|RegExp|undefined, detail: ResultValueType<T>): R;
 
         /**
          * Use .toFailTest to test a custom matcher by
          * verifying that a test case fails.
          */
-        toFailTest<T>(): R;
+        toFailTest(): R;
 
         /**
          * Use .toFailTestWith to test a custom matcher by
          * verifying that a test case fails as expected and
          * reports an error matching a stored snapshot.
          */
-        toFailTestAndMatchSnapshot<T>(): R;
+        toFailTestAndMatchSnapshot(): R;
 
         /**
          * Use .toFailTestWith to test a custom matcher by
@@ -83,6 +85,6 @@ declare namespace jest {
          * reports an error matching a supplied value.
          * @param {string|string[]|RegExp} expected
          */
-        toFailTestWith<T>(expected: string|string[]|RegExp): R;
+        toFailTestWith(expected: string|string[]|RegExp): R;
     }
 }

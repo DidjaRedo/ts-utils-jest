@@ -2,8 +2,10 @@
 
 exports[`.toSucceedAndMatchSnapshot logs details correctly for a failed result: toFailTestAndMatchSnapshot 1`] = `
 "expect(callback).toSucceedAndMatchSnapshot(expected)
-  Expected: Callback to succeed with a result that matches the snapshot
-  Received: Callback failed"
+Expected:
+  Callback to succeed with a result that matches the snapshot
+Received:
+  Failure with \\"oopsy\\""
 `;
 
 exports[`.toSucceedAndMatchSnapshot logs details correctly for a failed result: toFailTestAndMatchSnapshot 2`] = `

@@ -84,6 +84,22 @@ describe('MockFileSystem class', () => {
                 mockFs.readMockFileSync('path/to/writableFile.json');
             }).toThrowError(/mock file not found/i);
         });
+
+        describe('with mockWriteOnly option set to true', () => {
+            test('reads a file that is not in the config but which actually exists', () => {
+                const mockFs = new MockFileSystem(configs, { mockWriteOnly: true });
+                expect(() => {
+                    expect(mockFs.readMockFileSync('test/data/testData.json')).toEqual('{ "filename": "testData.json" }');
+                }).not.toThrow();
+            });
+
+            test('fails for a file that is not in the config and does not actually exist', () => {
+                const mockFs = new MockFileSystem(configs, { mockWriteOnly: true });
+                expect(() => {
+                    mockFs.readMockFileSync('test/data/notTestData.json');
+                }).toThrowError(/no such file or directory/i);
+            });
+        });
     });
 
     describe('writeMockFileSync method', () => {
@@ -148,6 +164,27 @@ describe('MockFileSystem class', () => {
                 mockFs.writeMockFileSync('./test.json', '["payload"]');
             }).toThrowError(/mock path not found/i);
         });
+
+        describe('with allowUnknownMockWrite', () => {
+            test('fails to write a mock file that is not writable', () => {
+                const mockFs = new MockFileSystem(configs, { allowUnknownMockWrite: true });
+                expect(() => {
+                    mockFs.writeMockFileSync('path/to/payloadFile.json', '["payload"]');
+                }).toThrowError(/mock permission denied/i);
+
+                expect(mockFs.readMockFileSync('path/to/payloadFile.json'))
+                    .toEqual('{ "filename": "inlineData" }');
+            });
+
+            test('writes a file that is not in the config', () => {
+                const mockFs = new MockFileSystem(configs, { allowUnknownMockWrite: true });
+                expect(() => {
+                    mockFs.writeMockFileSync('./test.json', '["payload"]');
+                }).not.toThrow();
+                expect(mockFs.getExtraFilesWritten()).toEqual([expect.stringContaining('/test.json')]);
+                expect(mockFs.tryGetPayload('./test.json')).toEqual('["payload"]');
+            });
+        });
     });
 
     describe('reset method', () => {
@@ -173,6 +210,22 @@ describe('MockFileSystem class', () => {
                 .toEqual('{ "filename": "testData.json" }');
             expect(mockFs.readMockFileSync('path/to/writablePayloadFile.json'))
                 .toEqual('{ "filename": "writableInlineData" }');
+        });
+
+        describe('with allowUnknownMockWrite', () => {
+            test('clears a written extra file', () => {
+                const mockFs = new MockFileSystem(configs, { allowUnknownMockWrite: true });
+                expect(() => {
+                    mockFs.writeMockFileSync('./test.json', '["payload"]');
+                }).not.toThrow();
+                expect(mockFs.getExtraFilesWritten()).toEqual([expect.stringContaining('/test.json')]);
+                expect(mockFs.tryGetPayload('./test.json')).toEqual('["payload"]');
+
+                mockFs.reset();
+
+                expect(mockFs.getExtraFilesWritten()).toHaveLength(0);
+                expect(mockFs.tryGetPayload('./test.json')).toBeUndefined();
+            });
         });
     });
 

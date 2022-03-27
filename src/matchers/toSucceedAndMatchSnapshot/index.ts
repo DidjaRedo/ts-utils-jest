@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars,no-unused-vars */
 import { Context } from 'jest-snapshot/build/types';
-import { Result } from '../../ts-utils';
+import { Result } from '@fgv/ts-utils';
 import { matcherHint } from 'jest-matcher-utils';
+import { printReceivedResult } from '../../utils/matcherHelpers';
 import { toMatchSnapshot } from 'jest-snapshot';
 
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace jest {
-        interface Matchers<R> {
+        // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars, @typescript-eslint/ban-types
+        interface Matchers<R, T extends Result<unknown>|{}> {
             /**
              * Use .toSucceedAndMatchSnapshot to verify that a Result<T> is a success
              * and that the result value matches a stored snapshot
@@ -27,8 +29,8 @@ export default {
                 pass: false, message: (): string => {
                     return [
                         matcherHint(`${matcherName}`, 'callback'),
-                        '  Expected: Callback to succeed with a result that matches the snapshot',
-                        '  Received: Callback failed',
+                        'Expected:\n  Callback to succeed with a result that matches the snapshot',
+                        printReceivedResult(received),
                     ].join('\n');
                 },
             };

@@ -9,7 +9,7 @@ expect.extend({
 
 describe('.toSucceedAndSatisfy', () => {
     test('passes with a success value and a callback that returns true', () => {
-        expect(succeed('hello')).toSucceedAndSatisfy((value: string) => value === 'hello');
+        expect(succeed('hello')).toSucceedAndSatisfy((value) => value === 'hello');
     });
 
     test('passes with a success value and a callback with no return', () => {
@@ -22,20 +22,20 @@ describe('.toSucceedAndSatisfy', () => {
     });
 
     test('fails with a success value but a callback that fails an expectation', () => {
-        expect(succeed('hello')).not.toSucceedAndSatisfy((value: string) => {
+        expect(succeed('hello')).not.toSucceedAndSatisfy((value) => {
             expect(value).toBe('goodbye');
             return true;
         });
     });
 
     test('fails with a success value but a callback that throws an exception', () => {
-        expect(succeed('hello')).not.toSucceedAndSatisfy((_value: string) => {
+        expect(succeed('hello')).not.toSucceedAndSatisfy((_value) => {
             throw new Error('UH OH AN ERRROR');
         });
     });
 
     test('fails with a failure value', () => {
-        expect(fail('oops')).not.toSucceedAndSatisfy((value: string) => value === 'oops');
+        expect(fail<string>('oops')).not.toSucceedAndSatisfy((value: string) => value === 'oops');
     });
 
     test('reports details when callback returns false', () => {
@@ -63,7 +63,7 @@ describe('.toSucceedAndSatisfy', () => {
 
     test('reports details when received is a failure result', () => {
         expect(() => {
-            expect(fail('oops')).toSucceedAndSatisfy((value: string) => value === 'oops');
+            expect(fail<string>('oops')).toSucceedAndSatisfy((value) => value === 'oops');
         }).toFailTestAndMatchSnapshot();
     });
 
