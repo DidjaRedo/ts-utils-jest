@@ -1,6 +1,6 @@
 {
   "name": "@fgv/ts-utils-jest",
-  "version": "0.3.1",
+  "version": "1.2.0",
   "description": "Custom matchers for ts-utils result class",
   "main": "dist/index.js",
   "scripts": {
@@ -35,14 +35,13 @@
   "devDependencies": {
     "@types/jest": "^27.4.1",
     "@types/node": "^17.0.23",
-    "@typescript-eslint/eslint-plugin": "^4.1.1",
-    "@typescript-eslint/parser": "^4.1.1",
-    "eslint": "^7.9.0",
-    "eslint-config-standard": "^14.1.1",
+    "@typescript-eslint/eslint-plugin": "^5.16.0",
+    "@typescript-eslint/parser": "^5.16.0",
+    "eslint": "^8.12.0",
+    "eslint-config-standard": "^17.0.0-1",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-promise": "^6.0.0",
     "jest": "^27.5.1",
     "prettier": "^2.1.1",
     "rimraf": "^3.0.2",
