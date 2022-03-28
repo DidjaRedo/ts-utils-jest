@@ -2,10 +2,16 @@ import { equals } from 'expect/build/jasmineUtils';
 
 export const matcherName = 'toHaveBeenCalledWithArgumentsMatching';
 
-export function predicate(received: jest.Mock, expected: unknown): unknown[] | undefined {
-    for (const args of received.mock.calls) {
+export interface MatchedCall {
+    index: number;
+    arguments: unknown[];
+}
+
+export function predicate(received: jest.Mock, expected: unknown): undefined | MatchedCall {
+    for (let i = 0; i < received.mock.calls.length; i++) {
+        const args = received.mock.calls[i];
         if (equals(args, expected)) {
-            return args;
+            return { index: i, arguments: args };
         }
     }
     return undefined;

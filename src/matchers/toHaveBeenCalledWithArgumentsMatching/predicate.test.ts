@@ -8,16 +8,16 @@ describe('toHaveBeenCalledWithArgumentsMatching', () => {
     fn();
 
     test('returns matching args if some call matches', () => {
-        expect(predicate(fn, ['arg1', 'arg2'])).toEqual(['arg1', 'arg2']);
-        expect(predicate(fn, ['call3'])).toEqual(['call3']);
+        expect(predicate(fn, ['arg1', 'arg2'])).toEqual({ index: 0, arguments: ['arg1', 'arg2'] });
+        expect(predicate(fn, ['call3'])).toEqual({ index: 2, arguments: ['call3'] });
     });
 
     test('matches matching args for a call with no parameters', () => {
-        expect(predicate(fn, [])).toEqual([]);
+        expect(predicate(fn, [])).toEqual({ index: 3, arguments: [] });
     });
 
     test('returns matching args if expected is an asymmetric matcher', () => {
-        expect(predicate(fn, expect.arrayContaining(['arg1']))).toEqual(['arg1', 'arg2']);
+        expect(predicate(fn, expect.arrayContaining(['arg1']))).toEqual({ index: 0, arguments: ['arg1', 'arg2'] });
     });
 
     test('returns undefined if no call matches', () => {

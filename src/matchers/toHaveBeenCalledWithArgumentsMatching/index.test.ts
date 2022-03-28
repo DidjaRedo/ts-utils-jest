@@ -49,10 +49,40 @@ describe('.toHaveBeenCalledWithArgumentsMatching', () => {
         }).toThrowErrorMatchingSnapshot();
     });
 
-    test('reports a helpful message if a .not test fails', () => {
-        const fn = jest.fn();
-        fn('arg1');
-        expect(fn).not.toHaveBeenCalledWithArgumentsMatching([expect.any(String)]);
+    describe('reports a helpful message if a .not test fails', () => {
+        test('with few calls', () => {
+            const fn = jest.fn();
+            fn('arg1');
+            expect(() => {
+                expect(fn).not.toHaveBeenCalledWithArgumentsMatching([expect.any(String)]);
+            }).toThrowErrorMatchingSnapshot();
+        });
+
+        describe('with many calls', () => {
+            let fn: jest.Mock;
+            beforeEach(() => {
+                fn = jest.fn();
+                fn('arg0');
+                fn('arg1');
+                fn('arg2');
+                fn('arg3');
+                fn('arg4');
+                fn('arg5');
+                fn('arg6');
+            });
+
+            test.each([
+                ['for the first call', ['arg0']],
+                ['for the second call', [expect.stringMatching(/1/)]],
+                ['for a call in the middle', ['arg3']],
+                ['for the second-to-last-call', ['arg5']],
+                ['for the last call', ['arg6']],
+            ])('%p', (_desc, args) => {
+                expect(() => {
+                    expect(fn).not.toHaveBeenCalledWithArgumentsMatching(args);
+                }).toThrowErrorMatchingSnapshot();
+            });
+        });
     });
 
     test('throws if argument is not a mock function', () => {

@@ -1,5 +1,5 @@
 import { getTypeOfProperty, getValueOfPropertyOrDefault, Result, ResultValueType, succeed } from '@fgv/ts-utils';
-import { matcherName, predicate } from './predicate';
+import { MatchedCall, matcherName, predicate } from './predicate';
 import { matcherHint, printExpected, printReceived } from 'jest-matcher-utils';
 
 declare global {
@@ -17,13 +17,47 @@ declare global {
     }
 }
 
-function passMessage(received: jest.Mock, expected: unknown, matched: unknown[]): () => string {
+function getRange(length: number, cursor: number): { start: number, end: number} {
+    // less than 3 return everything
+    if (length < 3) {
+        return { start: 0, end: length };
+    }
+
+    if (cursor === 0) {
+        return { start: 0, end: 3 };
+    }
+    else if (cursor >= length - 1) {
+        return { start: length - 3, end: length };
+    }
+    return { start: cursor - 1, end: cursor + 2 };
+}
+
+function formatOneCall(index: number, received: unknown, cursor: boolean): string {
+    const indexString = index.toLocaleString([], { maximumFractionDigits: 0, minimumIntegerDigits: 3 });
+    const cursorString = cursor ? '*' : ' ';
+    return `${cursorString}${indexString}: ${printReceived(received)}`;
+}
+
+function formatArgsMessage(received: jest.Mock, cursor: number): string[] {
+    const calls = received.mock.calls;
+
+    if (calls.length > 0) {
+        const { start, end } = getRange(calls.length, cursor);
+        const callsToShow = calls.slice(start, end);
+        return callsToShow.map(
+            (c, i) => formatOneCall(start + i, c, start + i === cursor)
+        );
+    }
+    return [];
+}
+
+function passMessage(received: jest.Mock, expected: unknown, matched: MatchedCall): () => string {
     return () => [
         matcherHint(`.not.${matcherName}`),
         'Expected no call with arguments matching:',
-        `    ${printExpected(expected)}`,
+        `      ${printExpected(expected)}`,
         `Received (${received.mock.calls.length} total):`,
-        `    ${printReceived(matched)}`,
+        ...formatArgsMessage(received, matched.index),
     ].join('\n');
 }
 
