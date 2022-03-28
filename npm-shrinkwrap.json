@@ -9,7 +9,7 @@
       "version": "1.2.0",
       "license": "MIT",
       "dependencies": {
-        "@fgv/ts-utils": "^1.3.0",
+        "@fgv/ts-utils": "^1.3.1",
         "expect": "^27.5.1",
         "jest-matcher-utils": "^27.5.1",
         "jest-snapshot": "^27.5.1"
@@ -666,9 +666,9 @@
       }
     },
     "node_modules/@fgv/ts-utils": {
-      "version": "1.3.0",
-      "resolved": "https://registry.npmjs.org/@fgv/ts-utils/-/ts-utils-1.3.0.tgz",
-      "integrity": "sha512-P1b9ixGq55ZrZunnBrGdQLEkLNIy9P0+qCBYVcLB66QxN/Oeufb7jcc/IV4n19lyJBwsJrFPm2smNWvfCyi1ng==",
+      "version": "1.3.1",
+      "resolved": "https://registry.npmjs.org/@fgv/ts-utils/-/ts-utils-1.3.1.tgz",
+      "integrity": "sha512-xkrOzWIGIzcLcI6Vjc+ZvC7Nb1o0ffyjNBYLZNHbN5Xm0RyIPm3gSEvEvG9Je2FO2YuYta24OSpAlz7DawZZCg==",
       "dependencies": {
         "csv-parse": "^4.16.3",
         "luxon": "^2.0.2",
@@ -6667,9 +6667,9 @@
       }
     },
     "@fgv/ts-utils": {
-      "version": "1.3.0",
-      "resolved": "https://registry.npmjs.org/@fgv/ts-utils/-/ts-utils-1.3.0.tgz",
-      "integrity": "sha512-P1b9ixGq55ZrZunnBrGdQLEkLNIy9P0+qCBYVcLB66QxN/Oeufb7jcc/IV4n19lyJBwsJrFPm2smNWvfCyi1ng==",
+      "version": "1.3.1",
+      "resolved": "https://registry.npmjs.org/@fgv/ts-utils/-/ts-utils-1.3.1.tgz",
+      "integrity": "sha512-xkrOzWIGIzcLcI6Vjc+ZvC7Nb1o0ffyjNBYLZNHbN5Xm0RyIPm3gSEvEvG9Je2FO2YuYta24OSpAlz7DawZZCg==",
       "requires": {
         "csv-parse": "^4.16.3",
         "luxon": "^2.0.2",

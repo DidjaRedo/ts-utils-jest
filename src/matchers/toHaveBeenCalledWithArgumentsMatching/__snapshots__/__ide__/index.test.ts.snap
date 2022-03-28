@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`.toHaveBeenCalledWithArgumentsMatching reports a helpful message if a call is not matched 1`] = `
+"[2mexpect([22m[31mreceived[39m[2m).[22mtoHaveBeenCalledWithArgumentsMatching[2m([22m[32mexpected[39m[2m)[22m
+Expected call with arguments matching:
+    [32m[\\"call7\\"][39m
+Received (6 total):
+    [31m[\\"call6\\"][39m
+    [31m[\\"call5\\"][39m
+    [31m[\\"call4\\"][39m"
+`;
+
+exports[`.toHaveBeenCalledWithArgumentsMatching reports a helpful message if function was not called 1`] = `
+"[2mexpect([22m[31mreceived[39m[2m).[22mtoHaveBeenCalledWithArgumentsMatching[2m([22m[32mexpected[39m[2m)[22m
+Expected call with arguments matching:
+    [32m[\\"call7\\"][39m
+Received (0 total):"
+`;
+
+exports[`.toHaveBeenCalledWithArgumentsMatching reports expected output if a call is not matched 1`] = `
+"[2mexpect([22m[31mreceived[39m[2m).[22mtoHaveBeenCalledWithArgumentsMatching[2m([22m[32mexpected[39m[2m)[22m
+Expected call with arguments matching:
+    [32m[\\"call7\\"][39m
+Received (6 total):
+    [31m[\\"call6\\"][39m
+    [31m[\\"call5\\"][39m
+    [31m[\\"call4\\"][39m"
+`;
+
+exports[`.toHaveBeenCalledWithArgumentsMatching reports expected output if a positive test fails 1`] = `
+"[2mexpect([22m[31mreceived[39m[2m).[22mtoHaveBeenCalledWithArgumentsMatching[2m([22m[32mexpected[39m[2m)[22m
+Expected call with arguments matching:
+    [32m[\\"call7\\"][39m
+Received (6 total):
+    [31m[\\"call6\\"][39m
+    [31m[\\"call5\\"][39m
+    [31m[\\"call4\\"][39m"
+`;
+
+exports[`.toHaveBeenCalledWithArgumentsMatching reports expected output if function was not called 1`] = `
+"[2mexpect([22m[31mreceived[39m[2m).[22mtoHaveBeenCalledWithArgumentsMatching[2m([22m[32mexpected[39m[2m)[22m
+Expected call with arguments matching:
+    [32m[\\"call7\\"][39m
+Received (0 total):"
+`;
+
+exports[`.toHaveBeenCalledWithArgumentsMatching throws if argument is not a mock function 1`] = `"Test error: toHaveBeenCalledWithArgumentsMatching called with other than jest.Mock"`;
