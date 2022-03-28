@@ -88,4 +88,10 @@ describe('verify matchers accessibility', () => {
             expect(true).toBe(false);
         }).toFailTestWith(/expect.*[\s\S].*false.*[\s\S].*true/i);
     });
+
+    test('toHaveBeenCalledWithArgumentsMatching exists and works', () => {
+        const fn = jest.fn();
+        fn('hello');
+        expect(fn).toHaveBeenCalledWithArgumentsMatching(['hello']);
+    });
 });
