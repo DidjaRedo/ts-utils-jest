@@ -35,18 +35,18 @@ function passMessage<T>(received: Result<T>): () => string {
 function failMessage<T>(received: Result<T>, cbResult: Result<boolean|void>): () => string {
     const expected = 'successful callback';
     const got = [printReceivedResult(received)];
+
+    // istanbul ignore else
     if (cbResult.isFailure()) {
         got.push(cbResult.message);
     }
     else if (cbResult.value === false) {
         got.push('  Callback returned false');
     }
-    // istanbul ignore else
     else if (cbResult.value === undefined) {
         got.push('  Callback was not invoked');
     }
     else {
-        // istanbul ignore next
         throw new Error('Internal error: toSucceedAndSatisfy.failMessage passed success with true');
     }
 

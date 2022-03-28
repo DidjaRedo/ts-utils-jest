@@ -9,11 +9,11 @@ expect.extend({
 });
 
 describe('toSucceedAndSatisfy', () => {
-    test('succeeds with true for a succesful result value and a callback that passes', () => {
+    test('succeeds with true for a successful result value and a callback that passes', () => {
         expect(predicate(succeed('hello'), (value: string) => value === 'hello', true)).toSucceedWith(true);
     });
 
-    test('succeeds with true for a succesful result value and a callback with no return value', () => {
+    test('succeeds with true for a successful result value and a callback with no return value', () => {
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         expect(predicate(succeed('hello'), () => {}, true)).toSucceedWith(true);
     });
