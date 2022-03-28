@@ -17,11 +17,13 @@ declare global {
     }
 }
 
-function passMessage(received: jest.Mock, expected: unknown): () => string {
+function passMessage(received: jest.Mock, expected: unknown, matched: unknown[]): () => string {
     return () => [
         matcherHint(`.not.${matcherName}`),
-        printExpected(expected),
-        printReceived(received),
+        'Expected no call with arguments matching:',
+        `    ${printExpected(expected)}`,
+        `Received (${received.mock.calls.length} total):`,
+        `    ${printReceived(matched)}`,
     ].join('\n');
 }
 
@@ -49,9 +51,9 @@ export default {
             throw new Error('Test error: toHaveBeenCalledWithArgumentsMatching called with other than jest.Mock');
         }
 
-        const pass = predicate(received, expected);
-        if (pass) {
-            return { pass: true, message: passMessage(received, expected) };
+        const matched = predicate(received, expected);
+        if (matched !== undefined) {
+            return { pass: true, message: passMessage(received, expected, matched) };
         }
 
         return { pass: false, message: failMessage(received, expected) };

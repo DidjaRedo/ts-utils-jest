@@ -52,7 +52,7 @@ describe('.toHaveBeenCalledWithArgumentsMatching', () => {
     test('reports a helpful message if a .not test fails', () => {
         const fn = jest.fn();
         fn('arg1');
-        expect(fn).not.toHaveBeenCalledWithArgumentsMatching(['arg1']);
+        expect(fn).not.toHaveBeenCalledWithArgumentsMatching([expect.any(String)]);
     });
 
     test('throws if argument is not a mock function', () => {

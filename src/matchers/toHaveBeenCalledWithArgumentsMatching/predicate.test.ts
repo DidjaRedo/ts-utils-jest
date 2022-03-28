@@ -7,25 +7,25 @@ describe('toHaveBeenCalledWithArgumentsMatching', () => {
     fn('call3');
     fn();
 
-    test('returns true if some call matches', () => {
-        expect(predicate(fn, ['arg1', 'arg2'])).toBe(true);
-        expect(predicate(fn, ['call3'])).toBe(true);
+    test('returns matching args if some call matches', () => {
+        expect(predicate(fn, ['arg1', 'arg2'])).toEqual(['arg1', 'arg2']);
+        expect(predicate(fn, ['call3'])).toEqual(['call3']);
     });
 
-    test('matches calls with no parameters', () => {
-        expect(predicate(fn, [])).toBe(true);
+    test('matches matching args for a call with no parameters', () => {
+        expect(predicate(fn, [])).toEqual([]);
     });
 
-    test('returns true if expected is a matcher', () => {
-        expect(predicate(fn, expect.arrayContaining(['arg1']))).toBe(true);
+    test('returns matching args if expected is an asymmetric matcher', () => {
+        expect(predicate(fn, expect.arrayContaining(['arg1']))).toEqual(['arg1', 'arg2']);
     });
 
-    test('returns false if no call matches', () => {
-        expect(predicate(fn, ['arg1'])).toBe(false);
-        expect(predicate(fn, ['call2', 'arg1'])).toBe(false);
+    test('returns undefined if no call matches', () => {
+        expect(predicate(fn, ['arg1'])).toBeUndefined();
+        expect(predicate(fn, ['call2', 'arg1'])).toBeUndefined();
     });
 
-    test('returns false if the mock has not been called', () => {
-        expect(predicate(jest.fn(), [])).toBe(false);
+    test('returns undefined if the mock has not been called', () => {
+        expect(predicate(jest.fn(), [])).toBeUndefined();
     });
 });
