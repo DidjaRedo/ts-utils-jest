@@ -92,6 +92,13 @@ declare global {
              * @param {string|string[]|RegExp} expected
              */
             toFailTestWith(expected: string|string[]|RegExp): R;
+
+            /**
+             * Use .toSucceedWith to verify that a Result<T> is a success
+             * and that the result value matches the supplied value
+             * @param {unknown} expected
+             */
+            toHaveBeenCalledWithArgumentsMatching(expected: unknown): R;
         }
     }
 }
