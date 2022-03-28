@@ -1,5 +1,5 @@
-import { getTypeOfProperty, getValueOfPropertyOrDefault, Result, ResultValueType, succeed } from '@fgv/ts-utils';
 import { MatchedCall, matcherName, predicate } from './predicate';
+import { getTypeOfProperty, getValueOfPropertyOrDefault } from '@fgv/ts-utils';
 import { matcherHint, printExpected, printReceived } from 'jest-matcher-utils';
 
 declare global {
@@ -38,11 +38,12 @@ function formatOneCall(index: number, received: unknown, cursor: boolean): strin
     return `${cursorString}${indexString}: ${printReceived(received)}`;
 }
 
-function formatArgsMessage(received: jest.Mock, cursor: number): string[] {
+function formatArgsMessage(received: jest.Mock, cursor?: number): string[] {
     const calls = received.mock.calls;
 
     if (calls.length > 0) {
-        const { start, end } = getRange(calls.length, cursor);
+        // if there's no cursor, show the last 3
+        const { start, end } = getRange(calls.length, cursor !== undefined ? cursor : calls.length - 1);
         const callsToShow = calls.slice(start, end);
         return callsToShow.map(
             (c, i) => formatOneCall(start + i, c, start + i === cursor)
@@ -65,9 +66,9 @@ function failMessage(received: jest.Mock, expected: unknown): () => string {
     return () => [
         matcherHint(`${matcherName}`),
         'Expected call with arguments matching:',
-        `    ${printExpected(expected)}`,
+        `      ${printExpected(expected)}`,
         `Received (${received.mock.calls.length} total):`,
-        ...received.mock.calls.slice(-3).reverse().map((c) => `    ${printReceived(c)}`),
+        ...formatArgsMessage(received),
     ].join('\n');
 }
 

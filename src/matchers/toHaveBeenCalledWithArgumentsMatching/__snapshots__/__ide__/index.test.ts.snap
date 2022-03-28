@@ -61,17 +61,17 @@ Received (7 total):
 exports[`.toHaveBeenCalledWithArgumentsMatching reports a helpful message if a call is not matched 1`] = `
 "[2mexpect([22m[31mreceived[39m[2m).[22mtoHaveBeenCalledWithArgumentsMatching[2m([22m[32mexpected[39m[2m)[22m
 Expected call with arguments matching:
-    [32m[\\"call7\\"][39m
+      [32m[\\"call7\\"][39m
 Received (6 total):
-    [31m[\\"call6\\"][39m
-    [31m[\\"call5\\"][39m
-    [31m[\\"call4\\"][39m"
+ 003: [31m[\\"call4\\"][39m
+ 004: [31m[\\"call5\\"][39m
+ 005: [31m[\\"call6\\"][39m"
 `;
 
 exports[`.toHaveBeenCalledWithArgumentsMatching reports a helpful message if function was not called 1`] = `
 "[2mexpect([22m[31mreceived[39m[2m).[22mtoHaveBeenCalledWithArgumentsMatching[2m([22m[32mexpected[39m[2m)[22m
 Expected call with arguments matching:
-    [32m[\\"call7\\"][39m
+      [32m[\\"call7\\"][39m
 Received (0 total):"
 `;
 
