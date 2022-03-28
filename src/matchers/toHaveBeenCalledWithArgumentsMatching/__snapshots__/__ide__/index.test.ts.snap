@@ -75,4 +75,10 @@ Expected call with arguments matching:
 Received (0 total):"
 `;
 
+exports[`.toHaveBeenCalledWithArgumentsMatching throws if argument is "an object" 1`] = `"Test error: toHaveBeenCalledWithArgumentsMatching called with other than jest.Mock"`;
+
+exports[`.toHaveBeenCalledWithArgumentsMatching throws if argument is "not a mock function" 1`] = `"Test error: toHaveBeenCalledWithArgumentsMatching called with other than jest.Mock"`;
+
+exports[`.toHaveBeenCalledWithArgumentsMatching throws if argument is "null" 1`] = `"Test error: toHaveBeenCalledWithArgumentsMatching called with other than jest.Mock"`;
+
 exports[`.toHaveBeenCalledWithArgumentsMatching throws if argument is not a mock function 1`] = `"Test error: toHaveBeenCalledWithArgumentsMatching called with other than jest.Mock"`;

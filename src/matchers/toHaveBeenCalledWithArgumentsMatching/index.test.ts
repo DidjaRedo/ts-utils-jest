@@ -85,9 +85,13 @@ describe('.toHaveBeenCalledWithArgumentsMatching', () => {
         });
     });
 
-    test('throws if argument is not a mock function', () => {
+    test.each([
+        ['not a mock function', () => 'hello'],
+        ['an object', {}],
+        ['null', null],
+    ])('throws if argument is %p', (_desc, arg) => {
         expect(() => {
-            expect({}).toHaveBeenCalledWithArgumentsMatching('whatever');
+            expect(arg).toHaveBeenCalledWithArgumentsMatching([]);
         }).toThrowErrorMatchingSnapshot();
     });
 });
