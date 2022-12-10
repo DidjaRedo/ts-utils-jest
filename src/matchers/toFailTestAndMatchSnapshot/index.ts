@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars,no-unused-vars */
+import { Context, toMatchSnapshot } from 'jest-snapshot';
 import { matcherName, predicate } from './predicate';
 
-import { Context } from 'jest-snapshot/build/types';
 import { Result } from '@fgv/ts-utils';
 import { matcherHint } from 'jest-matcher-utils';
-import { toMatchSnapshot } from 'jest-snapshot';
 
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -40,6 +39,6 @@ export default {
             context,
             cbResult.value,
             'toFailTestAndMatchSnapshot',
-        );
+        ) as jest.CustomMatcherResult;
     },
 };

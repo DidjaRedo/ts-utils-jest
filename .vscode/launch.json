@@ -11,7 +11,7 @@
             "args": [
                 "--runInBand",
                 "--config",
-                "jest.ide-config.js",
+                "jest.ide-config.js"
             ],
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
