@@ -8,7 +8,7 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace jest {
         // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars, @typescript-eslint/ban-types
-        interface Matchers<R, T extends Result<unknown>|{}> {
+        interface Matchers<R, T> {
             /**
              * Use .toSucceed to verify that a Result<T> is a success
              */

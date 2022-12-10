@@ -9,7 +9,7 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace jest {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars, @typescript-eslint/ban-types
-        interface Matchers<R, T extends Result<unknown>|{}> {
+        interface Matchers<R, T> {
             /**
              * Use .toSucceedWithDetail to verify that a DetailedResult<T, TD> is
              * a success and that the result value and detail matches the supplied
