@@ -1,6 +1,11 @@
 import './index';
 
-import { fail, failWithDetail, succeed, succeedWithDetail } from '@fgv/ts-utils';
+import {
+    fail,
+    failWithDetail,
+    succeed,
+    succeedWithDetail,
+} from '@fgv/ts-utils';
 
 describe('verify matchers accessibility', () => {
     test('toFail exists and works', () => {
@@ -13,7 +18,9 @@ describe('verify matchers accessibility', () => {
     });
 
     test('toFailWithDetail exists and works', () => {
-        expect(failWithDetail<string, string>('oops', 'detail')).toFailWithDetail('oops', 'detail');
+        expect(
+            failWithDetail<string, string>('oops', 'detail')
+        ).toFailWithDetail('oops', 'detail');
     });
 
     test('toSucceed exists and works', () => {
@@ -25,7 +32,10 @@ describe('verify matchers accessibility', () => {
     });
 
     test('toSucceedWithDetail exists and works', () => {
-        expect(succeedWithDetail('howdy', 'detail')).toSucceedWithDetail('howdy', 'detail');
+        expect(succeedWithDetail('howdy', 'detail')).toSucceedWithDetail(
+            'howdy',
+            'detail'
+        );
     });
 
     test('toSucceedAndSatisfy exists and works', () => {
@@ -55,20 +65,20 @@ describe('verify matchers accessibility', () => {
                 },
             })
         ).toSucceedAndMatchInlineSnapshot(`
-      Object {
-        "child": Object {
-          "values": Array [
-            Object {
-              "number": 1,
-            },
-            Object {
-              "number": 2,
-            },
-          ],
-        },
-        "field": "field",
-      }
-    `);
+            {
+              "child": {
+                "values": [
+                  {
+                    "number": 1,
+                  },
+                  {
+                    "number": 2,
+                  },
+                ],
+              },
+              "field": "field",
+            }
+        `);
     });
 
     test('toFailTest exists and works', () => {
