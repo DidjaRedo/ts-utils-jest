@@ -1,4 +1,4 @@
-import { DetailedResult, Result, ResultDetailType, ResultValueType } from '@fgv/ts-utils';
+import { DetailedResult, ResultDetailType, ResultValueType } from '@fgv/ts-utils';
 import { matcherName, predicate } from './predicate';
 import { printExpectedDetailedResult, printReceivedDetailedResult } from '../../utils/matcherHelpers';
 
