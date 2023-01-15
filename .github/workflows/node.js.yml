@@ -27,8 +27,8 @@ jobs:
     - run: npm ci
     - run: npm run lint
     - run: npm run build --if-present
-    - run: npm test
-    - run: npm run coverage
+    - run: npm test -- --colors
+    - run: npm run coverage -- --colors
   publish:
     needs: build
     runs-on: ubuntu-latest
