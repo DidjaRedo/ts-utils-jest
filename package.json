@@ -32,7 +32,7 @@
     "jest-snapshot": "^29.3.1"
   },
   "devDependencies": {
-    "@fgv/ts-utils": "1.9.0",
+    "@fgv/ts-utils": "1.9.1",
     "@types/jest": "^29.2.5",
     "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.48.0",
